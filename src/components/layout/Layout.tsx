@@ -8,6 +8,7 @@ const Layout = () => {
       </div>
       <div>
         <Outlet />
+        {import.meta.env.VITE_SMTALENT_API_URL_BOOKINGS}
       </div>
     </main>
   );
