@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { homeRoute } from '../../routes';
 import { GetSignInLogin } from '../../common/services/login-service';
 import AuthContext from '../../common/context/AuthProvider';
+import Spinner from '../../common/components/Spinner';
 
 const loginData = {
   email: 'admin@example.com',
@@ -10,17 +11,19 @@ const loginData = {
 };
 
 const Login = (): JSX.Element => {
+  const [email, setEmail] = useState(loginData.email);
+  const [password, setPassword] = useState(loginData.password);
+  const [isLoading, setIsLoading] = useState(false);
+
   const { loginUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const { state } = useLocation();
   const from = state?.from?.pathname || homeRoute;
 
-  const [email, setEmail] = useState(loginData.email);
-  const [password, setPassword] = useState(loginData.password);
-
   const login = async (event: MouseEvent) => {
     event.preventDefault();
+    setIsLoading(true);
     GetSignInLogin(email, password)
       .then((user) => {
         if (email === loginData.email && password === loginData.password) {
@@ -30,7 +33,8 @@ const Login = (): JSX.Element => {
       })
       .catch(() => {
         console.log('ALERT-ERROR');
-      });
+      })
+      .finally(() => setIsLoading(true));
   };
 
   return (
@@ -100,6 +104,7 @@ const Login = (): JSX.Element => {
           </div>
         </form>
       </div>
+      <Spinner show={isLoading} />
     </div>
   );
 };
