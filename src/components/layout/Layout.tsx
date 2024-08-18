@@ -3,7 +3,7 @@ import NavBar from './NavBar';
 
 const Layout = (): JSX.Element => {
   return (
-    <main className="grid p-4">
+    <main className="grid">
       <NavBar />
       <Outlet />
     </main>
