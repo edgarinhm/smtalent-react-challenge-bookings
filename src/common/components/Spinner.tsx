@@ -27,8 +27,6 @@ const Spinner = (props: SpinnerProps): JSX.Element => {
     Small: 'text-lg pt-0 text-center',
   };
 
-  console.log('size', size);
-
   const spinner = (
     <div
       className={`${loadingSpinnerSize} top-0 left-0 w-full h-full m-0 bg-black opacity-60 z-20 text-white flex items-center justify-center flex-col ${loadingOverlay}`}
