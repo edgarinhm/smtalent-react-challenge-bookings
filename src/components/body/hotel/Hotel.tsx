@@ -14,20 +14,33 @@ import { HotelModel } from '../../../common/models/hotel-model';
 import { Button } from '@headlessui/react';
 import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
+import Spinner from '../../../common/components/Spinner';
 
 const Hotel = (): JSX.Element => {
   const [hotels, setHotels] = useState<HotelModel[]>();
+  const [isLoading, setIsLoading] = useState(false);
+  const [spinnerText, setSpinnerText] = useState('');
   const columns = [{ Header: 'Nombre', dataKey: 'name' }];
 
   const handleDelete = (id: number): void => {
+    setSpinnerText('Process delete');
+    setIsLoading(true);
     DeleteHotelById(id)
       .then(() => console.log('ok'))
-      .catch(() => console.log('DeleteHotelById-Erro'));
+      .catch(() => console.log('DeleteHotelById-Erro'))
+      .finally(() => setIsLoading(false));
   };
 
   useEffect(() => {
     const loadHotelsData = async (): Promise<void> => {
-      GetHotels().then((hotels) => setHotels(hotels));
+      setSpinnerText('...Loading Hotels');
+      setIsLoading(true);
+      GetHotels()
+        .then((hotels) => setHotels(hotels))
+        .finally(() => {
+          setIsLoading(false);
+          setSpinnerText('');
+        });
     };
     loadHotelsData();
   }, []);
@@ -75,6 +88,7 @@ const Hotel = (): JSX.Element => {
           })}
         </TableBody>
       </Table>
+      <Spinner show={isLoading} text={spinnerText} />
     </div>
   );
 };
