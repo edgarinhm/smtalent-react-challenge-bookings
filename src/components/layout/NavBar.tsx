@@ -1,18 +1,18 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Disclosure, Menu, MenuButton } from '@headlessui/react';
+import { Disclosure } from '@headlessui/react';
 
 import {
   ArrowLeftEndOnRectangleIcon,
   ArrowLeftStartOnRectangleIcon,
 } from '@heroicons/react/24/outline';
-import { MdHome, MdOutlineBedroomChild } from 'react-icons/md';
-
+import { MdHome } from 'react-icons/md';
+import { LiaHotelSolid } from 'react-icons/lia';
 import useAuth from '../../common/hooks/useAuth';
 import { homeRoute, hotelRoute } from '../../routes';
 
 const navigation = [
   { name: 'Home', href: homeRoute, icon: MdHome },
-  { name: 'Hotels', href: hotelRoute, icon: MdOutlineBedroomChild },
+  { name: 'Hotels', href: hotelRoute, icon: LiaHotelSolid },
 ];
 
 const NavBar = () => {
@@ -26,20 +26,18 @@ const NavBar = () => {
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="hidden sm:ml-6 sm:block">
-              <Menu>
-                <div className="flex space-x-4">
-                  {navigation.map((item) => (
-                    <MenuButton
-                      key={item.name}
-                      id={item.name}
-                      className={`inline-flex items-center  gap-1 rounded-full py-1.5 px-3 text-sm/6 text-white shadow-inner shadow-white/10 focus:outline-none  data-[hover]:bg-white data-[hover]:bg-opacity-10 ${pathname === item.href ? 'outline outline-1 outline-white' : ''}`}
-                    >
-                      {<item.icon className="size-6" />}
-                      <Link to={item.href}>{item.name}</Link>
-                    </MenuButton>
-                  ))}
-                </div>
-              </Menu>
+              <div className="flex space-x-4">
+                {navigation.map((item) => (
+                  <Link
+                    to={item.href}
+                    key={item.name}
+                    className={`inline-flex items-center  gap-1 rounded-full py-1.5 px-3 text-sm/6 text-white shadow-inner shadow-white/10 hover:bg-white hover:bg-opacity-10 ${pathname === item.href ? 'outline outline-1 outline-white bg-white bg-opacity-10' : ''}`}
+                  >
+                    {<item.icon className="size-6" />}
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
