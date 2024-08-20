@@ -17,6 +17,8 @@ import { MdDelete } from 'react-icons/md';
 import Spinner from '../../../common/components/Spinner';
 import HotelModal from './HotelModal';
 import EditHotelModal from './EditHotelModal';
+import { GrOverview } from 'react-icons/gr';
+import HotelDrawer from './HotelDrawer';
 
 const Hotel = (): JSX.Element => {
   const [hotels, setHotels] = useState<HotelModel[]>();
@@ -24,7 +26,8 @@ const Hotel = (): JSX.Element => {
   const [spinnerText, setSpinnerText] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [udpdateHotelId, setUpdateHotelId] = useState<number>();
+  const [currentHotelId, setCurrentHotelId] = useState<number>();
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const columns = [{ Header: 'Nombre', dataKey: 'name' }];
 
@@ -92,7 +95,16 @@ const Hotel = (): JSX.Element => {
                     <Button
                       className="rounded bg-transparent py-2 px-4 text-md text-blue-500 data-[hover]:text-blue-800 data-[active]:text-blue-500"
                       onClick={() => {
-                        setUpdateHotelId(row['id']);
+                        setCurrentHotelId(row['id']);
+                        setIsDrawerOpen(true);
+                      }}
+                    >
+                      <GrOverview />
+                    </Button>
+                    <Button
+                      className="rounded bg-transparent py-2 px-4 text-md text-blue-500 data-[hover]:text-blue-800 data-[active]:text-blue-500"
+                      onClick={() => {
+                        setCurrentHotelId(row['id']);
                         setIsEditModalOpen(true);
                       }}
                     >
@@ -124,8 +136,12 @@ const Hotel = (): JSX.Element => {
       <EditHotelModal
         isOpen={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}
-        id={udpdateHotelId}
+        id={currentHotelId}
         updateGrid={loadHotelsData}
+      />
+      <HotelDrawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
       />
       <Spinner overlay="Component" show={isLoading} text={spinnerText} />
     </div>
