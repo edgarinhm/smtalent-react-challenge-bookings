@@ -92,12 +92,12 @@ Design can be found in: [FIGMA Page](https://www.figma.com).
 You are going to need a `.env` file like this one:
 
 ```bash
-VITE_API_HOSTNAME=http://your-api-url.com
+VITE_SMTALENT_API_URL_BOOKINGS=http://your-api-url.com
 ```
 
 #### Environment variables
 
-- `VITE_API_HOSTNAME`: URL for React Base backend (React Base-backend project).
+- `VITE_SMTALENT_API_URL_BOOKINGS`: URL for React Base backend (React Base-backend project).
 
 ## Technologies
 
