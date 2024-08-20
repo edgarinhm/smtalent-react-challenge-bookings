@@ -142,6 +142,7 @@ const Hotel = (): JSX.Element => {
       <HotelDrawer
         isOpen={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
+        id={currentHotelId}
       />
       <Spinner overlay="Component" show={isLoading} text={spinnerText} />
     </div>
