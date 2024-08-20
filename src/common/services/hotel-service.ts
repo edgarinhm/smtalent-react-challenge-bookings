@@ -18,3 +18,14 @@ export const CreateHotel = async (
   const url = ApiHotel.post();
   return (await axiosInstance.post<HotelModel>(url, hotel)).data;
 };
+
+export const GetHotelById = async (id: number): Promise<HotelModel> => {
+  const url = ApiHotel.get();
+  return (await axiosInstance.get<HotelModel[]>(url, { params: { id } }))
+    .data[0];
+};
+
+export const UpdateHotel = async (hotel: HotelModel): Promise<HotelModel> => {
+  const url = ApiHotel.put(hotel.id);
+  return (await axiosInstance.put<HotelModel>(url, hotel)).data;
+};

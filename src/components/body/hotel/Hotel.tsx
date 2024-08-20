@@ -16,12 +16,15 @@ import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import Spinner from '../../../common/components/Spinner';
 import HotelModal from './HotelModal';
+import EditHotelModal from './EditHotelModal';
 
 const Hotel = (): JSX.Element => {
   const [hotels, setHotels] = useState<HotelModel[]>();
   const [isLoading, setIsLoading] = useState(false);
   const [spinnerText, setSpinnerText] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [udpdateHotelId, setUpdateHotelId] = useState<number>();
 
   const columns = [{ Header: 'Nombre', dataKey: 'name' }];
 
@@ -86,7 +89,13 @@ const Hotel = (): JSX.Element => {
                 ))}
                 <TableColumn>
                   <div className="flex items-center justify-center">
-                    <Button className="rounded bg-transparent py-2 px-4 text-md text-blue-500 data-[hover]:text-blue-800 data-[active]:text-blue-500">
+                    <Button
+                      className="rounded bg-transparent py-2 px-4 text-md text-blue-500 data-[hover]:text-blue-800 data-[active]:text-blue-500"
+                      onClick={() => {
+                        setUpdateHotelId(row['id']);
+                        setIsEditModalOpen(true);
+                      }}
+                    >
                       <FaEdit />
                     </Button>
                     <Button
@@ -110,6 +119,12 @@ const Hotel = (): JSX.Element => {
       <HotelModal
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
+        updateGrid={loadHotelsData}
+      />
+      <EditHotelModal
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        id={udpdateHotelId}
         updateGrid={loadHotelsData}
       />
       <Spinner overlay="Component" show={isLoading} text={spinnerText} />
