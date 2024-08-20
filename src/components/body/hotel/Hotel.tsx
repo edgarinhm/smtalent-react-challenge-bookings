@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Table, {
   TableBody,
   TableColumn,
@@ -26,24 +26,27 @@ const Hotel = (): JSX.Element => {
     setSpinnerText('Process delete');
     setIsLoading(true);
     DeleteHotelById(id)
-      .then(() => console.log('ok'))
+      .then(() => {
+        loadHotelsData();
+      })
       .catch(() => console.log('DeleteHotelById-Erro'))
       .finally(() => setIsLoading(false));
   };
 
-  useEffect(() => {
-    const loadHotelsData = async (): Promise<void> => {
-      setSpinnerText('...Loading Hotels');
-      setIsLoading(true);
-      GetHotels()
-        .then((hotels) => setHotels(hotels))
-        .finally(() => {
-          setIsLoading(false);
-          setSpinnerText('');
-        });
-    };
-    loadHotelsData();
+  const loadHotelsData = useCallback(async (): Promise<void> => {
+    setSpinnerText('...Loading Hotels');
+    setIsLoading(true);
+    GetHotels()
+      .then((hotels) => setHotels(hotels))
+      .finally(() => {
+        setIsLoading(false);
+        setSpinnerText('');
+      });
   }, []);
+
+  useEffect(() => {
+    loadHotelsData();
+  }, [loadHotelsData]);
 
   return (
     <div className="grid p-2">
@@ -86,6 +89,9 @@ const Hotel = (): JSX.Element => {
               </TableRow>
             );
           })}
+          {!hotels?.length && (
+            <span className="ml-4">{'No exiten registros'}</span>
+          )}
         </TableBody>
       </Table>
       <Spinner show={isLoading} text={spinnerText} />
