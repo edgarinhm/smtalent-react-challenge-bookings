@@ -51,12 +51,16 @@ const Modal = ({
     onSubmit(newHotel);
     onClose();
   };
+  const handleCancel = (): void => {
+    setNewHotel(initialState);
+    onClose();
+  };
   return (
     <Dialog
       open={isOpen}
       as="div"
       className="relative z-10 focus:outline-none"
-      onClose={onClose}
+      onClose={handleCancel}
     >
       <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity z-10 w-screen overflow-y-auto ">
         <div className="flex min-h-full items-center justify-center p-4 ">
