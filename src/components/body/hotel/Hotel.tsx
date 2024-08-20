@@ -56,7 +56,7 @@ const Hotel = (): JSX.Element => {
       <div className="flex items-center justify-between">
         <h1 className="mt-4 mb-4 font-bold">{'Lista de Hoteles'}</h1>
         <Button
-          className="rounded-full bg-transparent py-2 px-4 text-md text-white bg-blue-500 data-[hover]:bg-blue-800 data-[active]:bg-blue-500"
+          className="rounded-full py-2 px-4 text-md text-white bg-blue-500 data-[hover]:bg-blue-800 data-[active]:bg-blue-500"
           onClick={() => setIsAddModalOpen(true)}
         >
           {'Agregar Hotel'}

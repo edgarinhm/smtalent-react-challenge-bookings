@@ -19,7 +19,6 @@ const HotelModal = ({ isOpen, onClose, updateGrid }: HotelModalProps) => {
   const submit = (hotel: Partial<HotelModel>) => {
     CreateHotel(hotel)
       .then(() => {
-        console.log('CreateHotel');
         updateGrid();
       })
       .catch(() => console.log('CreateHotel-Error'));
