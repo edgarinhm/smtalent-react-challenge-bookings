@@ -94,7 +94,7 @@ const Hotel = (): JSX.Element => {
           )}
         </TableBody>
       </Table>
-      <Spinner show={isLoading} text={spinnerText} />
+      <Spinner overlay="Component" show={isLoading} text={spinnerText} />
     </div>
   );
 };
