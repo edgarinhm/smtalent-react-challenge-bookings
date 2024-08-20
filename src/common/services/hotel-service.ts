@@ -11,3 +11,10 @@ export const DeleteHotelById = async (id: number): Promise<HotelModel> => {
   const url = ApiHotel.delete(id);
   return (await axiosInstance.delete<HotelModel>(url)).data;
 };
+
+export const CreateHotel = async (
+  hotel: Partial<HotelModel>
+): Promise<HotelModel> => {
+  const url = ApiHotel.post();
+  return (await axiosInstance.post<HotelModel>(url, hotel)).data;
+};
