@@ -101,15 +101,15 @@ VITE_API_HOSTNAME=http://your-api-url.com
 
 ## Technologies
 
-| **Tech**                                                  | **Description**                                                                                                                                         |
-| --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [React 18](https://facebook.github.io/react/)             | Fast, composable client-side components.                                                                                                                |
-| [React Router 6](https://github.com/reactjs/react-router) | A complete routing library for React                                                                                                                    |
-| [Zustand](https://zustand-demo.pmnd.rs/)                  | Enforces unidirectional data flows and immutable, hot reloadable store. Supports time-travel debugging.                                                 |
-| [Vitest](https://vitest.dev/)                             | Automated tests with built-in expect assertions and [Enzyme](https://github.com/airbnb/enzyme) for DOM testing without a browser using Node.            |
-| [ESLint](http://eslint.org/)                              | Lint JS. Reports syntax and style issues. Using [eslint-config-airbnb](https://www.npmjs.com/package/eslint-config-airbnb) for the airbnb style guides. |
-| [SASS](http://sass-lang.com/)                             | Compiled CSS styles with variables, functions, and more.                                                                                                |
-| Custom UI/CORE                                            | Custom UI/CORE is the components & styles library to build user interfaces                                                                              |
+| **Tech**                                                                   | **Description**                                                                                                                                         |
+| -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [React 18](https://facebook.github.io/react/)                              | Fast, composable client-side components.                                                                                                                |
+| [React Router 6](https://github.com/reactjs/react-router)                  | A complete routing library for React                                                                                                                    |
+| [Zustand](https://zustand-demo.pmnd.rs/)                                   | Enforces unidirectional data flows and immutable, hot reloadable store. Supports time-travel debugging.                                                 |
+| [Vitest](https://vitest.dev/)                                              | Automated tests with built-in expect assertions and [Enzyme](https://github.com/airbnb/enzyme) for DOM testing without a browser using Node.            |
+| [ESLint](http://eslint.org/)                                               | Lint JS. Reports syntax and style issues. Using [eslint-config-airbnb](https://www.npmjs.com/package/eslint-config-airbnb) for the airbnb style guides. |
+| [Tailwind](https://tailwindui.com/documentation#react-creating-components) | Compiled CSS styles with variables, functions, and more.                                                                                                |
+| Headeless UI                                                               | Headless UI/ is the components & styles library to build user interfaces                                                                                |
 
 ### Testing framework
 
@@ -240,8 +240,8 @@ See the section about [deployment](https://vitejs.dev/guide/static-deploy.html) 
 ### Deployment CI/CD
 
 - Github Actions
-- Github Packages
+- Azure App Service
 
 ### Demo:
 
-- Stage: [azure]
+- Stage: https://calm-dune-0821b0a1e.5.azurestaticapps.net/
