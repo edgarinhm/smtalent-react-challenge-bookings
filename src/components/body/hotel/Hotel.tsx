@@ -29,7 +29,14 @@ const Hotel = (): JSX.Element => {
   const [currentHotelId, setCurrentHotelId] = useState<number>();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  const columns = [{ Header: 'Nombre', dataKey: 'name' }];
+  const columns = [
+    { Header: 'Nombre', dataKey: 'name' },
+    {
+      Header: 'Activo',
+      dataKey: 'active',
+      formatCell: (value: string) => (value === 'true' ? 'Sí' : 'No'),
+    },
+  ];
 
   const handleDelete = (id: number): void => {
     setSpinnerText('Process delete');
@@ -87,7 +94,11 @@ const Hotel = (): JSX.Element => {
               <TableRow key={`row-${rowIndex}`}>
                 {columns.map((column) => (
                   <TableColumn key={`column-${column.dataKey}-${rowIndex}`}>
-                    {row[column.dataKey as keyof typeof row]}
+                    {column?.formatCell
+                      ? column.formatCell(
+                          `${row[column.dataKey as keyof typeof row]}`
+                        )
+                      : row[column.dataKey as keyof typeof row]}
                   </TableColumn>
                 ))}
                 <TableColumn>

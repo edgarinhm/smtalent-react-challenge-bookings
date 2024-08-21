@@ -6,7 +6,7 @@ import { HotelModel } from '../../../common/models/hotel-model';
 import { FormEvent, useEffect, useState } from 'react';
 import Modal from '../../../common/components/Modal';
 import Spinner from '../../../common/components/Spinner';
-import { Input } from '@headlessui/react';
+import { Checkbox, Field, Input, Label } from '@headlessui/react';
 
 interface EditHotelModalProps {
   isOpen: boolean;
@@ -61,13 +61,13 @@ const EditHotelModal = ({
   return (
     <>
       <Modal isOpen={isOpen} onClose={handleClose}>
-        <Modal.Header title="Editar Hotel" />
+        <Modal.Header title={'Editar Hotel'} />
         <form
           noValidate
           autoComplete="off"
           onSubmit={(event: FormEvent) => event.preventDefault()}
         >
-          <div>
+          <div className="mb-4">
             <label
               htmlFor="name"
               className="block text-sm font-medium leading-6 text-gray-900"
@@ -86,8 +86,44 @@ const EditHotelModal = ({
               }
             />
           </div>
+          <div className="mb-4">
+            <p className="block text-sm font-medium leading-6 text-gray-900">
+              {'Estado'}
+            </p>
+            <Field className="flex items-center gap-2">
+              <Checkbox
+                checked={hotel.active === true}
+                onChange={(checked) =>
+                  setHotel((state) => ({
+                    ...state,
+                    active: checked,
+                  }))
+                }
+                className="group block size-4 rounded border bg-white data-[checked]:bg-blue-500"
+              >
+                <svg
+                  className="stroke-white opacity-0 group-data-[checked]:opacity-100"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                >
+                  <path
+                    d="M3 8L6 11L11 3.5"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </Checkbox>
+              <Label>{'Activo'}</Label>
+            </Field>
+          </div>
         </form>
-        <Modal.Footer submitText="Guardar Cambios" onSubmit={handleSubmit} />
+        <Modal.Footer
+          submitText={'Guardar Cambios'}
+          onSubmit={handleSubmit}
+          cancelText={'Cancelar'}
+          onCancel={handleClose}
+        />
       </Modal>
       <Spinner show={isLoading} text={spinnerText} />
     </>

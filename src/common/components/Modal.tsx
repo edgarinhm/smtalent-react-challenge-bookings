@@ -33,7 +33,7 @@ const Header = ({ title }: { title?: string }): JSX.Element => {
   return (
     <>
       {title && (
-        <DialogTitle as="h3" className="text-base/7 font-medium text-black">
+        <DialogTitle as="h3" className="text-base/7 font-bold text-black mb-4">
           {title}
         </DialogTitle>
       )}
@@ -43,14 +43,27 @@ const Header = ({ title }: { title?: string }): JSX.Element => {
 
 const Footer = ({
   submitText = 'Save',
+  cancelText = 'Cancel',
   onSubmit,
+  onCancel,
 }: {
   submitText?: string;
   onSubmit?: () => void;
+  cancelText?: string;
+  onCancel?: () => void;
 }): JSX.Element => {
   return (
-    <div className="mt-4 flex justify-end">
-      {submitText && (
+    <div className="mt-4 gap-4 flex justify-end">
+      {onCancel && (
+        <Button
+          type="button"
+          className="inline-flex items-center gap-2 rounded-md bg-gray-400 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
+          onClick={onCancel}
+        >
+          {cancelText}
+        </Button>
+      )}
+      {onSubmit && (
         <Button
           type="submit"
           className="inline-flex items-center gap-2 rounded-md bg-blue-700 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-blue-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-blue-700"
