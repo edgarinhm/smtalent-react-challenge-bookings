@@ -11,8 +11,8 @@ import useAuth from '../../common/hooks/useAuth';
 import { homeRoute, hotelRoute } from '../../routes';
 
 const navigation = [
-  { name: 'Home', href: homeRoute, icon: MdHome },
-  { name: 'Hotels', href: hotelRoute, icon: LiaHotelSolid },
+  { name: 'Home', href: homeRoute.name, icon: MdHome },
+  { name: 'Hotels', href: hotelRoute.name, icon: LiaHotelSolid },
 ];
 
 const NavBar = () => {

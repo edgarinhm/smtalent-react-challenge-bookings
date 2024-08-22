@@ -64,7 +64,6 @@ export const ListSelectOption = ({
           active && !placeholder ? 'bg-blue-100 text-blue-900' : 'text-gray-900'
         }`
       }
-      key={option}
       value={value}
     >
       {({ selected }) => (

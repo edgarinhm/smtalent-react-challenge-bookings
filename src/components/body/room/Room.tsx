@@ -1,3 +1,4 @@
+import { Button } from '@headlessui/react';
 import { useCallback, useEffect, useState } from 'react';
 import Table, {
   TableBody,
@@ -6,78 +7,95 @@ import Table, {
   TableHeaders,
   TableRow,
 } from '../../../common/components/Table';
-import {
-  DeleteHotelById,
-  GetHotels,
-} from '../../../common/services/hotel-service';
-import { HotelModel } from '../../../common/models/hotel-model';
-import { Button } from '@headlessui/react';
+import { MdDelete } from 'react-icons/md';
 import { FaEdit } from 'react-icons/fa';
 import Spinner from '../../../common/components/Spinner';
-import HotelModal from './HotelModal';
-import EditHotelModal from './EditHotelModal';
-import { GrOverview } from 'react-icons/gr';
-import HotelDrawer from './HotelDrawer';
-import { MdOutlineBed, MdDelete } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
-import { hotelRoute } from '../../../routes';
+import { RoomModel } from '../../../common/models/room-model';
+import {
+  DeleteRoomById,
+  GetRooms,
+  GetRoomsByHotelId,
+} from '../../../common/services/room-service';
+import { useParams } from 'react-router-dom';
 import { GetLabelYesOrNotFormatter } from '../../../common/functions/table-formatters';
+import EditRoomModal from './EditRoomModal';
+import { GetLocationType } from '../../../common/enums/location-type';
+import currency from 'currency.js';
+import AddRoomModal from './AddRoomModal';
 
-const Hotel = (): JSX.Element => {
-  const [hotels, setHotels] = useState<HotelModel[]>();
+const columns = [
+  { Header: 'Piso', dataKey: 'level' },
+  { Header: 'Tipo', dataKey: 'type' },
+  { Header: 'Cantidad', dataKey: 'quantity' },
+  {
+    Header: 'Activo',
+    dataKey: 'active',
+    formatCell: GetLabelYesOrNotFormatter,
+  },
+  {
+    Header: 'Valor',
+    dataKey: 'baseCost',
+    formatCell: (value: string) => currency(value).format(),
+  },
+  {
+    Header: 'Impuestos',
+    dataKey: 'taxes',
+    formatCell: (value: string) => currency(value).format(),
+  },
+  { Header: 'Ubicación', dataKey: 'location', formatCell: GetLocationType },
+];
+
+const Room = (): JSX.Element => {
+  const [rooms, setRooms] = useState<RoomModel[]>();
+  const [currentRoomId, setCurrentRoomId] = useState<number>();
   const [isLoading, setIsLoading] = useState(false);
   const [spinnerText, setSpinnerText] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [currentHotelId, setCurrentHotelId] = useState<number>();
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  const navigate = useNavigate();
+  const { hotelId } = useParams();
 
-  const columns = [
-    { Header: 'Nombre', dataKey: 'name' },
-    {
-      Header: 'Activo',
-      dataKey: 'active',
-      formatCell: GetLabelYesOrNotFormatter,
-    },
-  ];
+  const loadRoomsData = useCallback(async (): Promise<void> => {
+    setSpinnerText('...Loading Rooms');
+    setIsLoading(true);
+    try {
+      const data = hotelId
+        ? await GetRoomsByHotelId(parseInt(hotelId))
+        : await GetRooms();
+      setRooms(data);
+    } catch (error) {
+      console.log('error', error);
+    }
+    setIsLoading(false);
+  }, [hotelId]);
 
   const handleDelete = (id: number): void => {
     setSpinnerText('Process delete');
     setIsLoading(true);
-    DeleteHotelById(id)
+    DeleteRoomById(id)
       .then(() => {
-        loadHotelsData();
+        loadRoomsData();
       })
       .catch(() => console.log('DeleteHotelById-Erro'))
       .finally(() => setIsLoading(false));
   };
 
-  const loadHotelsData = useCallback(async (): Promise<void> => {
-    setSpinnerText('...Loading Hotels');
-    setIsLoading(true);
-    GetHotels()
-      .then((hotels) => setHotels(hotels))
-      .finally(() => {
-        setIsLoading(false);
-        setSpinnerText('');
-      });
-  }, []);
-
   useEffect(() => {
-    loadHotelsData();
-  }, [loadHotelsData]);
+    loadRoomsData();
+  }, [loadRoomsData]);
 
   return (
     <div className="grid p-2">
       <div className="flex items-center justify-between">
-        <h1 className="mt-4 mb-4 font-bold">{'Lista de Hoteles'}</h1>
+        <h1 className="mt-4 mb-4 font-bold">
+          {'Lista de Habitaciones'}
+          {hotelId ? ` Hotel: ${hotelId}` : ''}
+        </h1>
         <Button
           className="rounded-full py-2 px-4 text-md text-white bg-blue-500 data-[hover]:bg-blue-800 data-[active]:bg-blue-500"
           onClick={() => setIsAddModalOpen(true)}
         >
-          {'Agregar Hotel'}
+          {'Agregar Habitación'}
         </Button>
       </div>
       <Table>
@@ -94,7 +112,7 @@ const Hotel = (): JSX.Element => {
           </TableHead>
         </TableHeaders>
         <TableBody>
-          {hotels?.map((row, rowIndex) => {
+          {rooms?.map((row, rowIndex) => {
             return (
               <TableRow key={`row-${rowIndex}`}>
                 {columns.map((column) => (
@@ -111,28 +129,7 @@ const Hotel = (): JSX.Element => {
                     <Button
                       className="rounded bg-transparent py-2 px-4 text-md text-blue-500 data-[hover]:text-blue-800 data-[active]:text-blue-500"
                       onClick={() => {
-                        navigate(
-                          `${hotelRoute.name}/${row['id']}/${
-                            hotelRoute.subroutes.room.name
-                          }`
-                        );
-                      }}
-                    >
-                      <GrOverview />
-                    </Button>
-                    <Button
-                      className="rounded bg-transparent py-2 px-4 text-md text-blue-500 data-[hover]:text-blue-800 data-[active]:text-blue-500"
-                      onClick={() => {
-                        setCurrentHotelId(row['id']);
-                        setIsDrawerOpen(true);
-                      }}
-                    >
-                      <MdOutlineBed />
-                    </Button>
-                    <Button
-                      className="rounded bg-transparent py-2 px-4 text-md text-blue-500 data-[hover]:text-blue-800 data-[active]:text-blue-500"
-                      onClick={() => {
-                        setCurrentHotelId(row['id']);
+                        setCurrentRoomId(row['id']);
                         setIsEditModalOpen(true);
                       }}
                     >
@@ -149,32 +146,28 @@ const Hotel = (): JSX.Element => {
               </TableRow>
             );
           })}
-          {!hotels?.length && (
+          {!rooms?.length && (
             <TableRow>
               <TableColumn>{'No exiten registros'}</TableColumn>
             </TableRow>
           )}
         </TableBody>
       </Table>
-      <HotelModal
+      <EditRoomModal
+        isOpen={isEditModalOpen}
+        id={currentRoomId}
+        onClose={() => setIsEditModalOpen(false)}
+        updateGrid={loadRoomsData}
+      />
+      <AddRoomModal
+        hotelId={hotelId}
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
-        updateGrid={loadHotelsData}
-      />
-      <EditHotelModal
-        isOpen={isEditModalOpen}
-        onClose={() => setIsEditModalOpen(false)}
-        id={currentHotelId}
-        updateGrid={loadHotelsData}
-      />
-      <HotelDrawer
-        isOpen={isDrawerOpen}
-        onClose={() => setIsDrawerOpen(false)}
-        id={currentHotelId}
+        updateGrid={loadRoomsData}
       />
       <Spinner overlay="Component" show={isLoading} text={spinnerText} />
     </div>
   );
 };
 
-export default Hotel;
+export default Room;

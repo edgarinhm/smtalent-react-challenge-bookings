@@ -23,6 +23,7 @@ import currency from 'currency.js';
 import { CreateRoom } from '../../../common/services/room-service';
 import Spinner from '../../../common/components/Spinner';
 import { LocationType } from '../../../common/enums/location-type';
+import { GetRoomLevels } from '../../../common/functions/room-functions';
 
 interface HotelDrawerProps {
   isOpen: boolean;
@@ -38,14 +39,14 @@ const initialState = {
   active: true,
   baseCost: 40000,
   taxes: 19,
-  location: LocationType.CAL,
+  location: LocationType.Cal,
 };
 
 const HotelDrawer = ({ isOpen, id, onClose }: HotelDrawerProps) => {
   const [room, setRoom] = useState<Omit<RoomModel, 'id'>>(initialState);
   const [isLoading, setIsLoading] = useState(false);
 
-  const levels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const levels = GetRoomLevels();
   const handleClose = (): void => {
     onClose();
     setRoom(initialState);
@@ -103,7 +104,11 @@ const HotelDrawer = ({ isOpen, id, onClose }: HotelDrawerProps) => {
                     </TransitionChild>
                   </div>
                   <div className="relative mt-6 flex-1 px-4 sm:px-6">
-                    <form noValidate autoComplete="off">
+                    <form
+                      onSubmit={(event) => event.preventDefault()}
+                      noValidate
+                      autoComplete="off"
+                    >
                       <div className="mb-4">
                         <Field className="flex flex-col gap-2">
                           <Label className="block text-sm font-medium leading-6 text-gray-900">
@@ -249,7 +254,7 @@ const HotelDrawer = ({ isOpen, id, onClose }: HotelDrawerProps) => {
                         onChange={(value) =>
                           setRoom((state) => ({
                             ...state,
-                            type: value,
+                            location: value,
                           }))
                         }
                       >
@@ -258,8 +263,8 @@ const HotelDrawer = ({ isOpen, id, onClose }: HotelDrawerProps) => {
                             (option, index, locations) => (
                               <ListSelectOption
                                 key={locations[index]}
-                                option={locations[index]}
-                                value={option}
+                                option={option}
+                                value={locations[index]}
                               />
                             )
                           )}

@@ -4,21 +4,32 @@ import Login from './components/login/Login';
 import Hotel from './components/body/hotel/Hotel';
 import Home from './components/home/Home';
 import Layout from './components/layout/Layout';
-import { homeRoute, hotelRoute, loginRoute } from './routes';
+import { homeRoute, hotelRoute, loginRoute, roomRoute } from './routes';
+import Room from './components/body/room/Room';
 
 const Router = () => {
   return (
     <Routes>
       <Route element={<Layout.Default />}>
-        <Route path={loginRoute} element={<Login />} />
+        <Route path={loginRoute.name} element={<Login />} />
       </Route>
-      <Route path={homeRoute} element={<Layout />}>
+      <Route path={homeRoute.name} element={<Layout />}>
         <Route
-          path={homeRoute}
-          element={<RequiereAuth redirectTo={loginRoute} />}
+          path={homeRoute.name}
+          element={<RequiereAuth redirectTo={loginRoute.name} />}
         >
-          <Route path={homeRoute} element={<Home />} />
-          <Route path={hotelRoute} element={<Hotel />} />
+          <Route path={homeRoute.name} element={<Home />} />
+          <Route path={hotelRoute.name}>
+            <Route index element={<Hotel />} />
+            <Route path={hotelRoute.pathParam}>
+              <Route path={hotelRoute.subroutes.room.name} element={<Room />} />
+            </Route>
+          </Route>
+          <Route path={hotelRoute.name} element={<Hotel />} />
+          <Route path={roomRoute.name}>
+            <Route index element={<Room />} />
+            <Route path={roomRoute.pathParam} element={<Room />} />
+          </Route>
         </Route>
       </Route>
     </Routes>
