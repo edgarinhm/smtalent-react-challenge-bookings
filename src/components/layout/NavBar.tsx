@@ -7,12 +7,21 @@ import {
 } from '@heroicons/react/24/outline';
 import { MdHome } from 'react-icons/md';
 import { LiaHotelSolid } from 'react-icons/lia';
+import { MdOutlineBed } from 'react-icons/md';
+import { FaBed } from 'react-icons/fa';
 import useAuth from '../../common/hooks/useAuth';
-import { homeRoute, hotelRoute } from '../../routes';
+import {
+  homeRoute,
+  hotelRoute,
+  reservationsRoute,
+  roomRoute,
+} from '../../routes';
 
 const navigation = [
   { name: 'Home', href: homeRoute.name, icon: MdHome },
   { name: 'Hotels', href: hotelRoute.name, icon: LiaHotelSolid },
+  { name: 'Rooms', href: roomRoute.name, icon: FaBed },
+  { name: 'Reservations', href: reservationsRoute.name, icon: MdOutlineBed },
 ];
 
 const NavBar = () => {

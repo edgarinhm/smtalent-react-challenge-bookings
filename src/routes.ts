@@ -11,3 +11,6 @@ export const roomRoute = {
   name: '/room',
   pathParam: ':id',
 };
+export const reservationsRoute = {
+  name: '/reservations',
+};

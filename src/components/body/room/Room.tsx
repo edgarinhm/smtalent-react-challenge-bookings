@@ -22,6 +22,8 @@ import UpdateRoomModal from './UpdateRoomModal';
 import { GetLocationType } from '../../../common/enums/location-type';
 import currency from 'currency.js';
 import CreateRoomModal from './CreateRoomModal';
+import { GetHotels } from '../../../common/services/hotel-service';
+import { HotelModel } from '../../../common/models/hotel-model';
 
 const columns = [
   { Header: 'Piso', dataKey: 'level' },
@@ -47,6 +49,7 @@ const columns = [
 
 const Room = (): JSX.Element => {
   const [rooms, setRooms] = useState<RoomModel[]>();
+  const [hotels, setHotels] = useState<HotelModel[]>();
   const [currentRoomId, setCurrentRoomId] = useState<number>();
   const [isLoading, setIsLoading] = useState(false);
   const [spinnerText, setSpinnerText] = useState('');
@@ -55,14 +58,31 @@ const Room = (): JSX.Element => {
 
   const { hotelId } = useParams();
 
+  const headers = !hotelId
+    ? [
+        {
+          Header: 'Hotel',
+          dataKey: 'hotelId',
+          formatCell: (value: string) =>
+            hotels?.find((hotel) => hotel.id === Number(value))?.name,
+        },
+        ...columns,
+      ]
+    : columns;
+
   const loadRoomsData = useCallback(async (): Promise<void> => {
     setSpinnerText('...Loading Rooms');
     setIsLoading(true);
     try {
-      const data = hotelId
-        ? await GetRoomsByHotelId(parseInt(hotelId))
-        : await GetRooms();
-      setRooms(data);
+      if (hotelId) {
+        const data = await GetRoomsByHotelId(parseInt(hotelId));
+        setRooms(data);
+      } else {
+        const hotels = await GetHotels();
+        setHotels(hotels);
+        const data = await GetRooms();
+        setRooms(data);
+      }
     } catch (error) {
       console.log('error', error);
     }
@@ -100,7 +120,7 @@ const Room = (): JSX.Element => {
       </div>
       <Table>
         <TableHeaders>
-          {columns.map((column) => (
+          {headers.map((column) => (
             <TableHead key={`header-${column.dataKey}`}>
               {column.Header}
             </TableHead>
@@ -115,7 +135,7 @@ const Room = (): JSX.Element => {
           {rooms?.map((row, rowIndex) => {
             return (
               <TableRow key={`row-${rowIndex}`}>
-                {columns.map((column) => (
+                {headers.map((column) => (
                   <TableColumn key={`column-${column.dataKey}-${rowIndex}`}>
                     {column?.formatCell
                       ? column.formatCell(
