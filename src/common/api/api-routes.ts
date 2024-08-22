@@ -9,3 +9,10 @@ export const ApiHotel = {
   delete: (id: number): string => `/hotels/${id}`,
   put: (id: number): string => `/hotels/${id}`,
 };
+
+export const ApiRoom = {
+  get: (): string => '/rooms',
+  post: (): string => '/rooms',
+  delete: (id: number): string => `/rooms/${id}`,
+  put: (id: number): string => `/rooms/${id}`,
+};
