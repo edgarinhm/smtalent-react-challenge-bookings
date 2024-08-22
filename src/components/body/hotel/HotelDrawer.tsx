@@ -68,8 +68,6 @@ const HotelDrawer = ({ isOpen, id, onClose }: HotelDrawerProps) => {
     }
   }, [id, isOpen]);
 
-  console.log('room', room);
-
   return (
     <>
       <Dialog open={isOpen} onClose={handleClose} className="relative z-10">
