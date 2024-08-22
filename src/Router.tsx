@@ -4,8 +4,15 @@ import Login from './components/login/Login';
 import Hotel from './components/body/hotel/Hotel';
 import Home from './components/home/Home';
 import Layout from './components/layout/Layout';
-import { homeRoute, hotelRoute, loginRoute, roomRoute } from './routes';
+import {
+  homeRoute,
+  hotelRoute,
+  loginRoute,
+  reservationRoute,
+  roomRoute,
+} from './routes';
 import Room from './components/body/room/Room';
+import Reservation from './components/body/reservation/Reservation';
 
 const Router = () => {
   return (
@@ -29,6 +36,13 @@ const Router = () => {
           <Route path={roomRoute.name}>
             <Route index element={<Room />} />
             <Route path={roomRoute.pathParam} element={<Room />} />
+          </Route>
+          <Route path={reservationRoute.name}>
+            <Route index element={<Reservation />} />
+            <Route
+              path={reservationRoute.pathParam}
+              element={<Reservation />}
+            />
           </Route>
         </Route>
       </Route>

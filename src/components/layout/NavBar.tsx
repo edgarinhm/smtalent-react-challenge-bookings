@@ -13,7 +13,7 @@ import useAuth from '../../common/hooks/useAuth';
 import {
   homeRoute,
   hotelRoute,
-  reservationsRoute,
+  reservationRoute,
   roomRoute,
 } from '../../routes';
 
@@ -21,7 +21,7 @@ const navigation = [
   { name: 'Home', href: homeRoute.name, icon: MdHome },
   { name: 'Hotels', href: hotelRoute.name, icon: LiaHotelSolid },
   { name: 'Rooms', href: roomRoute.name, icon: FaBed },
-  { name: 'Reservations', href: reservationsRoute.name, icon: MdOutlineBed },
+  { name: 'Reservations', href: reservationRoute.name, icon: MdOutlineBed },
 ];
 
 const NavBar = () => {
