@@ -12,13 +12,17 @@ import { CreateHotel } from '../../../common/services/hotel-service';
 import { HotelModel } from '../../../common/models/hotel-model';
 import { useState } from 'react';
 
-interface HotelModalProps {
+interface CreateHotelModalProps {
   isOpen: boolean;
   onClose: () => void;
   updateGrid: () => void;
 }
 
-const HotelModal = ({ isOpen, onClose, updateGrid }: HotelModalProps) => {
+const CreateHotelModal = ({
+  isOpen,
+  onClose,
+  updateGrid,
+}: CreateHotelModalProps) => {
   const submit = (hotel: Partial<HotelModel>) => {
     CreateHotel(hotel)
       .then(() => {
@@ -150,4 +154,4 @@ const Modal = ({
   );
 };
 
-export default HotelModal;
+export default CreateHotelModal;

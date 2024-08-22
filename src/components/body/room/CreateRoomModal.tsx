@@ -1,15 +1,13 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import Modal from '../../../common/components/Modal';
 import Spinner from '../../../common/components/Spinner';
 import { Checkbox, Field, Input, Label, Select } from '@headlessui/react';
 import { RoomModel } from '../../../common/models/room-model';
-import { GetRoomById, UpdateRoom } from '../../../common/services/room-service';
+import { CreateRoom } from '../../../common/services/room-service';
 import { RoomType } from '../../../common/enums/room-type';
 import {
-  GetLocationType,
   GetLocationTypeId,
   LocationType,
-  LocationTypeId,
 } from '../../../common/enums/location-type';
 import ListSelect, {
   ListSelectOption,
@@ -18,9 +16,9 @@ import ListSelect, {
 import currency from 'currency.js';
 import { GetRoomLevels } from '../../../common/functions/room-functions';
 
-interface EditRoomModalProps {
+interface AddRoomModalProps {
   isOpen: boolean;
-  id?: number;
+  hotelId?: string;
   onClose: () => void;
   updateGrid: () => void;
 }
@@ -37,12 +35,12 @@ const initialState = {
   location: LocationType.Cal,
 };
 
-const EditRoomModal = ({
+const CreateRoomModal = ({
   isOpen,
-  id,
+  hotelId,
   onClose,
   updateGrid,
-}: EditRoomModalProps) => {
+}: AddRoomModalProps) => {
   const [room, setRoom] = useState<RoomModel>(initialState);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -54,9 +52,13 @@ const EditRoomModal = ({
 
   const handleSubmit = (): void => {
     setIsLoading(true);
-    const roomUpdated = { ...room, location: GetLocationTypeId(room.location) };
+    const roomUpdated = {
+      ...room,
+      location: GetLocationTypeId(room.location),
+      hotelId: Number(hotelId),
+    };
 
-    UpdateRoom(roomUpdated)
+    CreateRoom(roomUpdated)
       .then(() => {
         console.log('ALERT OK');
         handleClose();
@@ -65,17 +67,6 @@ const EditRoomModal = ({
       .catch(() => console.log('ALERT ERROR'))
       .finally(() => setIsLoading(false));
   };
-
-  useEffect(() => {
-    if (isOpen && id) {
-      GetRoomById(id).then((room) => {
-        setRoom({
-          ...room,
-          location: GetLocationType(room.location as LocationTypeId),
-        });
-      });
-    }
-  }, [id, isOpen]);
 
   return (
     <>
@@ -244,9 +235,9 @@ const EditRoomModal = ({
           onCancel={handleClose}
         />
       </Modal>
-      <Spinner show={isLoading} text={'Proccesing update room asignation'} />
+      <Spinner show={isLoading} text={'Proccesing create room'} />
     </>
   );
 };
 
-export default EditRoomModal;
+export default CreateRoomModal;

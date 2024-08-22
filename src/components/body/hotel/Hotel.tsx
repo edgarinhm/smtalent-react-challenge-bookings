@@ -14,8 +14,8 @@ import { HotelModel } from '../../../common/models/hotel-model';
 import { Button } from '@headlessui/react';
 import { FaEdit } from 'react-icons/fa';
 import Spinner from '../../../common/components/Spinner';
-import HotelModal from './HotelModal';
-import EditHotelModal from './EditHotelModal';
+import CreateHotelModal from './CreateHotelModal';
+import UpdateHotelModal from './UpdateHotelModal';
 import { GrOverview } from 'react-icons/gr';
 import HotelDrawer from './HotelDrawer';
 import { MdOutlineBed, MdDelete } from 'react-icons/md';
@@ -156,12 +156,12 @@ const Hotel = (): JSX.Element => {
           )}
         </TableBody>
       </Table>
-      <HotelModal
+      <CreateHotelModal
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
         updateGrid={loadHotelsData}
       />
-      <EditHotelModal
+      <UpdateHotelModal
         isOpen={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}
         id={currentHotelId}

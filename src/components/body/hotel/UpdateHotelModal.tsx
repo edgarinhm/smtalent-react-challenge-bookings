@@ -8,19 +8,19 @@ import Modal from '../../../common/components/Modal';
 import Spinner from '../../../common/components/Spinner';
 import { Checkbox, Field, Input, Label } from '@headlessui/react';
 
-interface EditHotelModalProps {
+interface UpdateHotelModalProps {
   isOpen: boolean;
   id?: number;
   onClose: () => void;
   updateGrid: () => void;
 }
 
-const EditHotelModal = ({
+const UpdateHotelModal = ({
   isOpen,
   id,
   onClose,
   updateGrid,
-}: EditHotelModalProps) => {
+}: UpdateHotelModalProps) => {
   const initialState: HotelModel = { id: 0, name: '', active: false };
   const [hotel, setHotel] = useState<HotelModel>(initialState);
   const [isLoading, setIsLoading] = useState(false);
@@ -130,4 +130,4 @@ const EditHotelModal = ({
   );
 };
 
-export default EditHotelModal;
+export default UpdateHotelModal;

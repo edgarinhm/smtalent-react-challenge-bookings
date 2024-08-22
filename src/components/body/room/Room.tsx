@@ -18,10 +18,10 @@ import {
 } from '../../../common/services/room-service';
 import { useParams } from 'react-router-dom';
 import { GetLabelYesOrNotFormatter } from '../../../common/functions/table-formatters';
-import EditRoomModal from './EditRoomModal';
+import UpdateRoomModal from './UpdateRoomModal';
 import { GetLocationType } from '../../../common/enums/location-type';
 import currency from 'currency.js';
-import AddRoomModal from './AddRoomModal';
+import CreateRoomModal from './CreateRoomModal';
 
 const columns = [
   { Header: 'Piso', dataKey: 'level' },
@@ -153,13 +153,13 @@ const Room = (): JSX.Element => {
           )}
         </TableBody>
       </Table>
-      <EditRoomModal
+      <UpdateRoomModal
         isOpen={isEditModalOpen}
         id={currentRoomId}
         onClose={() => setIsEditModalOpen(false)}
         updateGrid={loadRoomsData}
       />
-      <AddRoomModal
+      <CreateRoomModal
         hotelId={hotelId}
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}

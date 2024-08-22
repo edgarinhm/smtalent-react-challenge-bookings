@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import {
   Button,
   Checkbox,
@@ -105,7 +105,7 @@ const HotelDrawer = ({ isOpen, id, onClose }: HotelDrawerProps) => {
                   </div>
                   <div className="relative mt-6 flex-1 px-4 sm:px-6">
                     <form
-                      onSubmit={(event) => event.preventDefault()}
+                      onSubmit={(event: FormEvent) => event.preventDefault()}
                       noValidate
                       autoComplete="off"
                     >
@@ -115,6 +115,7 @@ const HotelDrawer = ({ isOpen, id, onClose }: HotelDrawerProps) => {
                             {'Piso'}
                           </Label>
                           <Select
+                            value={room.level}
                             name="level"
                             aria-label="Level floor"
                             onChange={(event) =>
@@ -173,9 +174,9 @@ const HotelDrawer = ({ isOpen, id, onClose }: HotelDrawerProps) => {
                             onChange={(event) =>
                               setRoom((state) => ({
                                 ...state,
-                                quantity: currency(event.target.value, {
-                                  precision: 0,
-                                }).value,
+                                quantity: event.target.value
+                                  ? parseInt(event.target.value)
+                                  : 0,
                               }))
                             }
                           />
@@ -259,15 +260,13 @@ const HotelDrawer = ({ isOpen, id, onClose }: HotelDrawerProps) => {
                         }
                       >
                         <ListSelectOptions>
-                          {Object.values(LocationType).map(
-                            (option, index, locations) => (
-                              <ListSelectOption
-                                key={locations[index]}
-                                option={option}
-                                value={locations[index]}
-                              />
-                            )
-                          )}
+                          {Object.values(LocationType).map((option) => (
+                            <ListSelectOption
+                              key={option}
+                              option={option}
+                              value={option}
+                            />
+                          ))}
                         </ListSelectOptions>
                       </ListSelect>
                     </form>
