@@ -68,10 +68,10 @@ const SearchBar = () => {
               onChange={(value) => setSelectedOccupancy(value)}
             />
           </div>
-          <div className="flex flex-auto ml-1 rounded bg-yellow-500">
+          <div className="flex ml-1">
             <Button
               type="submit"
-              className="w-full rounded bg-blue-600 p-4 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-blue-700 data-[open]:bg-blue-700 data-[focus]:outline-1 data-[focus]:outline-white"
+              className="w-full h-full rounded bg-blue-600 p-3 text-sm/6 font-bold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-blue-700 data-[open]:bg-blue-700 data-[focus]:outline-1 data-[focus]:outline-white"
               onClick={handleSubmit}
             >
               {'Buscar'}

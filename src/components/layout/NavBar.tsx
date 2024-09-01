@@ -30,7 +30,7 @@ const NavBar = () => {
   const { pathname } = useLocation();
 
   return (
-    <Disclosure as="nav" className="bg-blue-800">
+    <Disclosure as="nav" className="bg-blue-800 py-6">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
@@ -49,25 +49,31 @@ const NavBar = () => {
               </div>
             </div>
           </div>
-          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+          <div className="flex space-x-2">
             <button
               type="button"
-              className="relative rounded-full  p-1 text-white hover:text-white hover:bg-white hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+              className="flex bg-white items-center text-blue-600 p-2 rounded font-bold hover:bg-gray-100"
               onClick={() => (auth ? logoutUser() : navigate('/login'))}
             >
               <span className="absolute -inset-1.5" />
-              <span className="sr-only">SignOut</span>
+
               {auth && (
-                <ArrowLeftStartOnRectangleIcon
-                  className="h-6 w-6"
-                  aria-hidden="true"
-                />
+                <>
+                  <span className="mr-1">{'Sign Out'}</span>
+                  <ArrowLeftStartOnRectangleIcon
+                    className="h-6 w-6"
+                    aria-hidden="true"
+                  />
+                </>
               )}
               {!auth && (
-                <ArrowLeftEndOnRectangleIcon
-                  className="h-6 w-6"
-                  aria-hidden="true"
-                />
+                <>
+                  <span className="mr-1">{'Sign In'}</span>
+                  <ArrowLeftEndOnRectangleIcon
+                    className="h-6 w-6"
+                    aria-hidden="true"
+                  />
+                </>
               )}
             </button>
           </div>

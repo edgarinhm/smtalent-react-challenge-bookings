@@ -35,7 +35,8 @@ const DatePickerRange = (props: DatePickerRange) => {
   return (
     <DatePicker
       {...props}
-      className="mt-0.5 mb-0.5 border-solid border border-transparent w-full ml-4 outline-transparent"
+      className="mt-0.5 mb-0.5 border-solid border border-transparent ml-4 focus:outline-none"
+      wrapperClassName="min-w-full"
       icon={
         <LuCalendarDays
           cursor={'pointer'}
