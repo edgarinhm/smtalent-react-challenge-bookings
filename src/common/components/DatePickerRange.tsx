@@ -1,4 +1,5 @@
-import { CalendarDaysIcon } from '@heroicons/react/24/outline';
+import { LuCalendarDays } from 'react-icons/lu';
+
 import DatePicker from 'react-datepicker';
 
 interface DatePickerRange {
@@ -36,7 +37,10 @@ const DatePickerRange = (props: DatePickerRange) => {
       {...props}
       className="mt-0.5 mb-0.5 border-solid border border-transparent w-full ml-4 outline-transparent"
       icon={
-        <CalendarDaysIcon cursor={'pointer'} className="text-gray-600 m-1" />
+        <LuCalendarDays
+          cursor={'pointer'}
+          className="text-gray-600 m-1  size-6"
+        />
       }
       startDate={startDate}
       endDate={endDate}

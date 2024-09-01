@@ -10,7 +10,8 @@ import {
   Transition,
 } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import { MinusIcon, PlusIcon, UserIcon } from '@heroicons/react/24/outline';
+import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
+import { BiUser } from 'react-icons/bi';
 
 interface OccupancyFilterProps {
   label?: string;
@@ -25,7 +26,7 @@ const OccupancyFilter = ({
   return (
     <Popover className="group relative self-center box-border w-full p-2 rounded-md">
       <PopoverButton className="mt-0.5 mb-0.5 pt-1 pb-1 pl-2 pr-6 text-sm border-solid border border-transparent rounded-md bg-white flex flex-auto items-center justify-start overflow-hidden text-ellipsis whitespace-nowrap">
-        <UserIcon className="pr-2 text-xs text-gray-600 inline-block size-6 align-top" />
+        <BiUser className="pr-2 text-xs text-gray-600 inline-block align-top size-6" />
         {' 2 adultos · 0 niños · 1 habitación'}
         <ChevronDownIcon className="size-5 group-data-[open]:rotate-180" />
       </PopoverButton>
