@@ -34,7 +34,10 @@ const DatePickerRange = (props: DatePickerRange) => {
   return (
     <DatePicker
       {...props}
-      icon={<CalendarDaysIcon cursor={'pointer'} className=" text-gray-600" />}
+      className="mt-0.5 mb-0.5 border-solid border border-transparent w-full ml-4 outline-transparent"
+      icon={
+        <CalendarDaysIcon cursor={'pointer'} className="text-gray-600 m-1" />
+      }
       startDate={startDate}
       endDate={endDate}
       onChange={onChange}

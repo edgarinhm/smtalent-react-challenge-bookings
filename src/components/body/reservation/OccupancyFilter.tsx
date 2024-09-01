@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import {
   Button,
   Field,
@@ -6,6 +7,7 @@ import {
   Popover,
   PopoverButton,
   PopoverPanel,
+  Transition,
 } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { MinusIcon, PlusIcon, UserIcon } from '@heroicons/react/24/outline';
@@ -21,41 +23,51 @@ const OccupancyFilter = ({
   onChange,
 }: OccupancyFilterProps) => {
   return (
-    <Popover className="group relative self-center box-border w-full">
-      <PopoverButton className="box-border rounded bg-white flex flex-auto ml-1 items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap p-2">
+    <Popover className="group relative self-center box-border w-full p-2 rounded-md">
+      <PopoverButton className="mt-0.5 mb-0.5 pt-1 pb-1 pl-2 pr-6 text-sm border-solid border border-transparent rounded-md bg-white flex flex-auto items-center justify-start overflow-hidden text-ellipsis whitespace-nowrap">
         <UserIcon className="pr-2 text-xs text-gray-600 inline-block size-6 align-top" />
         {' 2 adultos · 0 niños · 1 habitación'}
         <ChevronDownIcon className="size-5 group-data-[open]:rotate-180" />
       </PopoverButton>
-      <PopoverPanel
-        transition
-        anchor="bottom"
-        className="z-50 border shadow-xl shadow-gray-500/40 w-80 divide-y divide-white/5 rounded-md bg-white text-sm/6 transition duration-200 ease-in-out [--anchor-gap:var(--spacing-5)] data-[closed]:-translate-y-1 data-[closed]:opacity-0"
+      <Transition
+        as={Fragment}
+        enter="transition ease-out duration-200"
+        enterFrom="opacity-0 translate-y-1"
+        enterTo="opacity-100 translate-y-0"
+        leave="transition ease-in duration-150"
+        leaveFrom="opacity-100 translate-y-0"
+        leaveTo="opacity-0 translate-y-1"
       >
-        <div className="p-8" data-testid="occupancy-popup">
-          <OccupancyFilterOption
-            id={'group_adults'}
-            option="Adultos"
-            value="2"
-          />
-          <OccupancyFilterOption
-            id={'group_children'}
-            option="Niños"
-            value="1"
-          />
-          <OccupancyFilterOption
-            id={'group_rooms'}
-            option="Habitaciones"
-            value="2"
-          />
-          <Button
-            type="button"
-            className="w-full text-blue-500  font-bold rounded-sm outline outline-offset-2 outline-1 pt-1 pb-1 pl-3 pr-3 mt-4"
-          >
-            Listo
-          </Button>
-        </div>
-      </PopoverPanel>
+        <PopoverPanel
+          transition
+          anchor="bottom"
+          className="z-50 mt-1 border shadow-xl shadow-gray-500/40 w-80 divide-y divide-white/5 rounded-md bg-white text-sm/6 transition duration-200 ease-in-out [--anchor-gap:var(--spacing-5)] data-[closed]:-translate-y-1 data-[closed]:opacity-0"
+        >
+          <div className="p-8" data-testid="occupancy-popup">
+            <OccupancyFilterOption
+              id={'group_adults'}
+              option="Adultos"
+              value="2"
+            />
+            <OccupancyFilterOption
+              id={'group_children'}
+              option="Niños"
+              value="1"
+            />
+            <OccupancyFilterOption
+              id={'group_rooms'}
+              option="Habitaciones"
+              value="2"
+            />
+            <Button
+              type="button"
+              className="w-full text-blue-500  font-bold rounded-sm outline outline-offset-2 outline-1 pt-1 pb-1 pl-3 pr-3 mt-4"
+            >
+              Listo
+            </Button>
+          </div>
+        </PopoverPanel>
+      </Transition>
     </Popover>
   );
 };
