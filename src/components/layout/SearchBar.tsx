@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import OccupancyFilter from './OccupancyFilter';
 import { SearchHotelModel } from '../../common/models/search-hotel-model';
 import { IoBedOutline } from 'react-icons/io5';
+import ErrorTooltip from '../../common/components/ErrorTooltip';
 
 const initalState: SearchHotelModel = {
   destination: '',
@@ -22,6 +23,8 @@ const SearchBar = () => {
   );
 
   const [searchHotel, setSearchHotel] = useState<SearchHotelModel>(initalState);
+
+  const errors = { destination: { message: '' } };
 
   const handleOccupancy = (name: string, value: number) => {
     console.log('name', name, 'value', value);
@@ -41,20 +44,24 @@ const SearchBar = () => {
       <form onSubmit={(event: FormEvent) => event.preventDefault()}>
         <div className="mt-6 mb-4 p-1 flex items-center relative bg-yellow-500 rounded-lg max-w-full">
           <div className="flex flex-row items-center flex-1 bg-white p-4 rounded">
-            <IoBedOutline className="mr-2 text-gray-600 size-6" />
-            <Input
-              className="text-md w-full focus:outline-none"
-              placeholder={'¿Adónde vas?'}
-              value={searchHotel.destination}
-              onChange={(event) =>
-                setSearchHotel((state) => ({
-                  ...state,
-                  destination: event.target.value,
-                }))
-              }
-            />
+            <ErrorTooltip
+              error={errors?.destination?.message}
+              placement="bottom"
+            >
+              <IoBedOutline className="mr-2 text-gray-600 size-6" />
+              <Input
+                className="text-md w-full focus:outline-none"
+                placeholder={'¿Adónde vas?'}
+                value={searchHotel.destination}
+                onChange={(event) =>
+                  setSearchHotel((state) => ({
+                    ...state,
+                    destination: event.target.value,
+                  }))
+                }
+              />
+            </ErrorTooltip>
           </div>
-
           <div className="flex w-[27%] ml-1 bg-white rounded-md">
             <div className="p-3 w-full">
               <DatePickerSelectRangeInput
