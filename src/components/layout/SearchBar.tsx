@@ -15,8 +15,10 @@ const initalState: SearchHotelModel = {
 };
 
 const SearchBar = () => {
-  const [startDate, setStartDate] = useState<Date>(new Date());
-  const [endDate, setEndDate] = useState<Date | null>();
+  const [startDate, setStartDate] = useState<Date>(dayjs().toDate());
+  const [endDate, setEndDate] = useState<Date | null>(
+    dayjs().add(8, 'day').toDate()
+  );
 
   const [selectedOccupancy, setSelectedOccupancy] = useState('');
 
