@@ -49,7 +49,7 @@ const ErrorTooltip = ({
       {children}
       {show && error && (
         <div
-          className={`absolute ${placementStyle[placement]} group-hover:block text-xs transition-opacity ${animationDuration}  group-hover:opacity-100 rounded bg-red-500 text-white min-w-64 py-2 px-1 z-10
+          className={`absolute ${placementStyle[placement]} group-hover:block text-xs transition-opacity ${animationDuration}  group-hover:opacity-100 rounded bg-red-500 text-white left-1/3 min-w-64 py-2 px-1 z-10
             `}
         >
           {error}
