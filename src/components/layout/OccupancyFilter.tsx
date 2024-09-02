@@ -46,18 +46,21 @@ const OccupancyFilter = ({ selected, onChange }: OccupancyFilterProps) => {
               option="Adultos"
               value={selected.adultCount.toString()}
               onChange={onChange}
+              disabled={selected.adultCount === 1}
             />
             <OccupancyFilterOption
               id={'childCount'}
               option="Niños"
               value={selected.childCount.toString()}
               onChange={onChange}
+              disabled={selected.childCount === 0}
             />
             <OccupancyFilterOption
               id={'roomCount'}
               option="Habitaciones"
               value={selected.roomCount.toString()}
               onChange={onChange}
+              disabled={selected.roomCount === 1}
             />
 
             <PopoverButton
@@ -77,11 +80,13 @@ const OccupancyFilterOption = ({
   id,
   option,
   value,
+  disabled = false,
   onChange,
 }: {
   id: string;
   option: string;
   value: string;
+  disabled?: boolean;
   onChange: (name: string, value: number) => void;
 }): JSX.Element => {
   return (
@@ -107,7 +112,8 @@ const OccupancyFilterOption = ({
         <Button
           tabIndex={-1}
           type="button"
-          className="size-10 me-0 p-1 text-blue-500 align-middle rounded bg-transparent transition-transform inline-flex decoration-none text-start border-none items-center justify-center"
+          disabled={disabled}
+          className="disabled:cursor-not-allowed disabled:focus:cursor-auto size-10 me-0 p-1 text-blue-500 align-middle rounded bg-transparent transition-transform inline-flex decoration-none text-start border-none items-center justify-center"
           onClick={() =>
             Number(value) > 0 ? onChange(id, Number(value) - 1) : undefined
           }
