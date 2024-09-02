@@ -59,12 +59,13 @@ const OccupancyFilter = ({ selected, onChange }: OccupancyFilterProps) => {
               value={selected.roomCount.toString()}
               onChange={onChange}
             />
-            <Button
+
+            <PopoverButton
               type="button"
               className="w-full text-blue-500  font-bold rounded-sm outline outline-offset-2 outline-1 pt-1 pb-1 pl-3 pr-3 mt-4"
             >
-              Listo
-            </Button>
+              {'Listo'}
+            </PopoverButton>
           </div>
         </PopoverPanel>
       </Transition>
