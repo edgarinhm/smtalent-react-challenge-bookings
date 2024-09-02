@@ -2,7 +2,8 @@ export interface SearchHotelModel {
   destination: string;
   checkIn: string;
   checkOut: string;
-  adultCoount: number;
+  adultCount: number;
   childCount: number;
+  roomCount: number;
   hotelId?: number;
 }

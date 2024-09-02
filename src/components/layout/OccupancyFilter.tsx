@@ -12,22 +12,18 @@ import {
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { BiUser } from 'react-icons/bi';
+import { OccupancyModel } from '../../common/models/occupancy-model';
 
 interface OccupancyFilterProps {
-  label?: string;
-  selected: string;
-  onChange: (value: string) => void;
+  selected: OccupancyModel;
+  onChange: (name: string, value: number) => void;
 }
-const OccupancyFilter = ({
-  label,
-  selected,
-  onChange,
-}: OccupancyFilterProps) => {
+const OccupancyFilter = ({ selected, onChange }: OccupancyFilterProps) => {
   return (
     <Popover className="group relative self-center box-border w-full p-0.5 rounded-md">
       <PopoverButton className="p-0.5 text-sm border-solid border border-transparent rounded-md bg-white flex flex-auto items-center justify-start overflow-hidden text-ellipsis whitespace-nowrap">
         <BiUser className="pr-2 text-xs text-gray-600 inline-block align-top size-6" />
-        {' 2 adultos · 0 niños · 1 habitación'}
+        {` ${selected.adultCount} adultos · ${selected.childCount}  niños · ${selected.roomCount}  habitaciones`}
         <ChevronDownIcon className="size-5 group-data-[open]:rotate-180" />
       </PopoverButton>
       <Transition
@@ -46,19 +42,22 @@ const OccupancyFilter = ({
         >
           <div className="p-8" data-testid="occupancy-popup">
             <OccupancyFilterOption
-              id={'group_adults'}
+              id={'adultCount'}
               option="Adultos"
-              value="2"
+              value={selected.adultCount.toString()}
+              onChange={onChange}
             />
             <OccupancyFilterOption
-              id={'group_children'}
+              id={'childCount'}
               option="Niños"
-              value="1"
+              value={selected.childCount.toString()}
+              onChange={onChange}
             />
             <OccupancyFilterOption
-              id={'group_rooms'}
+              id={'roomCount'}
               option="Habitaciones"
-              value="2"
+              value={selected.roomCount.toString()}
+              onChange={onChange}
             />
             <Button
               type="button"
@@ -77,10 +76,12 @@ const OccupancyFilterOption = ({
   id,
   option,
   value,
+  onChange,
 }: {
   id: string;
   option: string;
   value: string;
+  onChange: (name: string, value: number) => void;
 }): JSX.Element => {
   return (
     <div className="mb-1 flex flex-wrap items-center justify-between">
@@ -97,6 +98,7 @@ const OccupancyFilterOption = ({
             aria-valuemin={1}
             aria-valuemax={30}
             aria-valuenow={Number(value)}
+            onChange={(event) => onChange(id, Number(event.target.value))}
           />
         </div>
       </Field>
@@ -104,33 +106,28 @@ const OccupancyFilterOption = ({
         <Button
           tabIndex={-1}
           type="button"
-          aria-hidden="true"
           className="size-10 me-0 p-1 text-blue-500 align-middle rounded bg-transparent transition-transform inline-flex decoration-none text-start border-none items-center justify-center"
+          onClick={() =>
+            Number(value) > 0 ? onChange(id, Number(value) - 1) : undefined
+          }
         >
           <span className="relative inline-flex overflow-hidden flex-shrink-0 mt-0 mb-0 ml-3 mr-3">
-            <MinusIcon
-              className="inline-block h-4 align-top  w-auto"
-              aria-hidden="true"
-            />
+            <MinusIcon className="inline-block h-4 align-top  w-auto" />
           </span>
         </Button>
-        <span
-          className="text-sm leading-normal font-medium block text-center mt-0 mb-0 mr-1 ml-1 min-w-9"
-          aria-hidden="true"
-        >
+        <span className="text-sm leading-normal font-medium block text-center mt-0 mb-0 mr-1 ml-1 min-w-9">
           {value}
         </span>
         <Button
           tabIndex={-1}
           type="button"
-          aria-hidden="true"
           className="size-10 me-0 p-1 text-blue-500 align-middle rounded bg-transparent transition-transform inline-flex decoration-none text-start border-none items-center justify-center"
+          onClick={() =>
+            Number(value) < 30 ? onChange(id, Number(value) + 1) : undefined
+          }
         >
           <span className="relative inline-flex overflow-hidden flex-shrink-0 mt-0 mb-0 ml-3 mr-3">
-            <PlusIcon
-              className="inline-block h-4 align-top  w-auto"
-              aria-hidden="true"
-            />
+            <PlusIcon className="inline-block h-4 align-top  w-auto" />
           </span>
         </Button>
       </div>

@@ -10,8 +10,9 @@ const initalState: SearchHotelModel = {
   destination: '',
   checkIn: '',
   checkOut: '',
-  adultCoount: 1,
+  adultCount: 1,
   childCount: 0,
+  roomCount: 1,
 };
 
 const SearchBar = () => {
@@ -20,9 +21,16 @@ const SearchBar = () => {
     dayjs().add(8, 'day').toDate()
   );
 
-  const [selectedOccupancy, setSelectedOccupancy] = useState('');
-
   const [searchHotel, setSearchHotel] = useState<SearchHotelModel>(initalState);
+
+  const handleOccupancy = (name: string, value: number) => {
+    console.log('name', name, 'value', value);
+
+    setSearchHotel((state) => ({
+      ...state,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = (): void => {
     console.log('searchHotel', searchHotel);
@@ -65,8 +73,12 @@ const SearchBar = () => {
           <div className="flex w-[27%] ml-1 bg-white rounded-md">
             <div className="p-3 w-full">
               <OccupancyFilter
-                selected={selectedOccupancy}
-                onChange={(value) => setSelectedOccupancy(value)}
+                selected={{
+                  adultCount: searchHotel.adultCount,
+                  childCount: searchHotel.childCount,
+                  roomCount: searchHotel.roomCount,
+                }}
+                onChange={handleOccupancy}
               />
             </div>
           </div>
