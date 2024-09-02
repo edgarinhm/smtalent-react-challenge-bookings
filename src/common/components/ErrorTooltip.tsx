@@ -6,12 +6,14 @@ import {
 } from '../types/tooltip';
 
 interface ErrorTooltipProps {
+  show: boolean;
   error?: string;
   placement?: TooltipPlacement;
   alignment?: TooltipAlignment;
   children: ReactNode;
 }
 const ErrorTooltip = ({
+  show,
   error,
   placement = 'top',
   alignment = 'center',
@@ -45,9 +47,9 @@ const ErrorTooltip = ({
       className="relative group flex flex-row items-center flex-1"
     >
       {children}
-      {error && (
+      {show && error && (
         <div
-          className={`absolute ${placementStyle[placement]} hidden group-hover:block text-xs transition-opacity ${animationDuration} opacity-0 group-hover:opacity-100 rounded bg-red-500 text-white left-2 py-2 px-1 z-10
+          className={`absolute ${placementStyle[placement]} group-hover:block text-xs transition-opacity ${animationDuration}  group-hover:opacity-100 rounded bg-red-500 text-white left-2 py-2 px-1 z-10
             `}
         >
           {error}

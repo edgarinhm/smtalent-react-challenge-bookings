@@ -24,7 +24,11 @@ const SearchBar = () => {
 
   const [searchHotel, setSearchHotel] = useState<SearchHotelModel>(initalState);
 
-  const errors = { destination: { message: '' } };
+  const [submitted, setSubmitted] = useState(false);
+
+  const errors = {
+    destination: { message: 'Introduce un destino para empezar a buscar.' },
+  };
 
   const handleOccupancy = (name: string, value: number) => {
     console.log('name', name, 'value', value);
@@ -36,6 +40,7 @@ const SearchBar = () => {
   };
 
   const handleSubmit = (): void => {
+    setSubmitted(true);
     console.log('searchHotel', searchHotel);
   };
 
@@ -45,7 +50,10 @@ const SearchBar = () => {
         <div className="mt-6 mb-4 p-1 flex items-center relative bg-yellow-500 rounded-lg max-w-full">
           <div className="flex flex-row items-center flex-1 bg-white p-4 rounded">
             <ErrorTooltip
-              error={errors?.destination?.message}
+              error={
+                !searchHotel.destination ? errors?.destination?.message : ''
+              }
+              show={submitted}
               placement="bottom"
             >
               <IoBedOutline className="mr-2 text-gray-600 size-6" />
