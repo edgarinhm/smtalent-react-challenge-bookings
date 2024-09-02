@@ -1,7 +1,7 @@
 import { Button, Input } from '@headlessui/react';
 import { FormEvent, useState } from 'react';
-import DatePickerRange from '../../common/components/DatePickerRange';
-import dayjs, { Dayjs } from 'dayjs';
+import { DatePickerSelectRangeInput } from '../../common/components/DatePickerRange';
+import dayjs from 'dayjs';
 import OccupancyFilter from './OccupancyFilter';
 import { SearchHotelModel } from '../../common/models/search-hotel-model';
 import { IoBedOutline } from 'react-icons/io5';
@@ -15,8 +15,9 @@ const initalState: SearchHotelModel = {
 };
 
 const SearchBar = () => {
-  const [dateRange, setDateRange] = useState<Dayjs[]>();
-  const [startDate, endDate] = dateRange ?? [null, null];
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [endDate, setEndDate] = useState<Date | null>();
+
   const [selectedOccupancy, setSelectedOccupancy] = useState('');
 
   const [searchHotel, setSearchHotel] = useState<SearchHotelModel>(initalState);
@@ -26,47 +27,46 @@ const SearchBar = () => {
   };
 
   return (
-    <div>
+    <div className="-mt-8">
       <form onSubmit={(event: FormEvent) => event.preventDefault()}>
         <div className="mt-6 mb-4 p-1 flex items-center relative bg-yellow-500 rounded-lg max-w-full">
-          <div className="flex flex-auto bg-white rounded-md w-1/3">
-            <div className="flex flex-row p-2 items-center flex-1 w-full">
-              <IoBedOutline className="mr-2 text-gray-600 size-6" />
-              <Input
-                className="mt-0.5 mb-0.5 p-1 border-solid border border-transparent rounded w-full outline-transparent"
-                placeholder={'¿Adónde vas?'}
-                value={searchHotel.destination}
-                onChange={(event) =>
-                  setSearchHotel((state) => ({
-                    ...state,
-                    destination: event.target.value,
-                  }))
-                }
-              />
-            </div>
+          <div className="flex flex-row items-center flex-1 bg-white p-4 rounded">
+            <IoBedOutline className="mr-2 text-gray-600 size-6" />
+            <Input
+              className="text-md w-full focus:outline-none"
+              placeholder={'¿Adónde vas?'}
+              value={searchHotel.destination}
+              onChange={(event) =>
+                setSearchHotel((state) => ({
+                  ...state,
+                  destination: event.target.value,
+                }))
+              }
+            />
           </div>
+
           <div className="flex w-[27%] ml-1 bg-white rounded-md">
-            <div className="p-1.5  w-full">
-              <DatePickerRange
-                showIcon
-                toggleCalendarOnIconClick
-                selectsRange={true}
-                startDate={startDate?.toDate()}
-                endDate={endDate?.toDate()}
-                onChange={(update) => {
-                  setDateRange([
-                    dayjs(update[0] ?? undefined),
-                    dayjs(update[1] ?? undefined),
-                  ]);
+            <div className="p-3 w-full">
+              <DatePickerSelectRangeInput
+                minDate={dayjs()}
+                selectedDate={dayjs(startDate)}
+                startDate={startDate}
+                endDate={endDate ?? undefined}
+                onSelectRangeDate={(value) => {
+                  const [start, end] = value;
+                  setStartDate(start);
+                  setEndDate(end);
                 }}
               />
             </div>
           </div>
           <div className="flex w-[27%] ml-1 bg-white rounded-md">
-            <OccupancyFilter
-              selected={selectedOccupancy}
-              onChange={(value) => setSelectedOccupancy(value)}
-            />
+            <div className="p-3 w-full">
+              <OccupancyFilter
+                selected={selectedOccupancy}
+                onChange={(value) => setSelectedOccupancy(value)}
+              />
+            </div>
           </div>
           <div className="flex ml-1">
             <Button

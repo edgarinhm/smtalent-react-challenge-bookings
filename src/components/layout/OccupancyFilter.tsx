@@ -24,8 +24,8 @@ const OccupancyFilter = ({
   onChange,
 }: OccupancyFilterProps) => {
   return (
-    <Popover className="group relative self-center box-border w-full p-2 rounded-md">
-      <PopoverButton className="mt-0.5 mb-0.5 pt-1 pb-1 pl-2 pr-6 text-sm border-solid border border-transparent rounded-md bg-white flex flex-auto items-center justify-start overflow-hidden text-ellipsis whitespace-nowrap">
+    <Popover className="group relative self-center box-border w-full p-0.5 rounded-md">
+      <PopoverButton className="p-0.5 text-sm border-solid border border-transparent rounded-md bg-white flex flex-auto items-center justify-start overflow-hidden text-ellipsis whitespace-nowrap">
         <BiUser className="pr-2 text-xs text-gray-600 inline-block align-top size-6" />
         {' 2 adultos · 0 niños · 1 habitación'}
         <ChevronDownIcon className="size-5 group-data-[open]:rotate-180" />
@@ -42,7 +42,7 @@ const OccupancyFilter = ({
         <PopoverPanel
           transition
           anchor="bottom"
-          className="z-50 mt-1 border shadow-xl shadow-gray-500/40 w-80 divide-y divide-white/5 rounded-md bg-white text-sm/6 transition duration-200 ease-in-out [--anchor-gap:var(--spacing-5)] data-[closed]:-translate-y-1 data-[closed]:opacity-0"
+          className="z-50 mt-4 border shadow-xl shadow-gray-500/40 w-80 divide-y divide-white/5 rounded-md bg-white text-sm/6 transition duration-200 ease-in-out [--anchor-gap:var(--spacing-5)] data-[closed]:-translate-y-1 data-[closed]:opacity-0"
         >
           <div className="p-8" data-testid="occupancy-popup">
             <OccupancyFilterOption

@@ -6,7 +6,7 @@ const Footer = (): JSX.Element => {
           {'Poweredge.com'}
         </span>
         <span className="text-white font-bold  tracking-tight flex gap-4">
-          <p className="cursor-pointer">{'terminios y condiciones'}</p>
+          <p className="cursor-pointer">{'Terminos y condiciones'}</p>
         </span>
       </div>
     </div>
