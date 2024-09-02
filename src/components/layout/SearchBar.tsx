@@ -31,8 +31,6 @@ const SearchBar = () => {
   };
 
   const handleOccupancy = (name: string, value: number) => {
-    console.log('name', name, 'value', value);
-
     setSearchHotel((state) => ({
       ...state,
       [name]: value,
@@ -55,6 +53,7 @@ const SearchBar = () => {
               }
               show={submitted}
               placement="bottom"
+              alignment="start"
             >
               <IoBedOutline className="mr-2 text-gray-600 size-6" />
               <Input
