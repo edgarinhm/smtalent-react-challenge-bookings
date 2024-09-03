@@ -1,4 +1,4 @@
-import { Button, Input } from '@headlessui/react';
+import { Button } from '@headlessui/react';
 import { FormEvent, useState } from 'react';
 import { DatePickerSelectRangeInput } from '../../common/components/DatePickerRange';
 import dayjs from 'dayjs';
@@ -10,6 +10,8 @@ import {
 import { IoBedOutline } from 'react-icons/io5';
 import ErrorTooltip from '../../common/components/ErrorTooltip';
 import { GetSearchHotels } from '../../common/services/search-service';
+import { GetLocationTypeId } from '../../common/enums/location-type';
+import Autocomplete from '../../common/components/LocationAutocomplete';
 
 const initalState: SearchHotelModel = {
   destination: '',
@@ -48,6 +50,7 @@ const SearchBar = ({ onSubmit }: SearchBarProps) => {
   const handleSubmit = async (): Promise<void> => {
     setSubmitted(true);
     if (searchHotel.destination) {
+      GetLocationTypeId(searchHotel.destination);
       const hotels = await GetSearchHotels(searchHotel);
       onSubmit(hotels);
     }
@@ -67,14 +70,11 @@ const SearchBar = ({ onSubmit }: SearchBarProps) => {
               alignment="start"
             >
               <IoBedOutline className="mr-2 text-gray-600 size-6" />
-              <Input
-                className="text-md w-full focus:outline-none"
-                placeholder={'¿Adónde vas?'}
-                value={searchHotel.destination}
-                onChange={(event) =>
+              <Autocomplete
+                onChange={(value) =>
                   setSearchHotel((state) => ({
                     ...state,
-                    destination: event.target.value,
+                    destination: value,
                   }))
                 }
               />
