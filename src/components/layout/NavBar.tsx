@@ -55,8 +55,6 @@ const NavBar = () => {
               className="flex bg-white items-center text-blue-600 p-2 rounded font-bold hover:bg-gray-100"
               onClick={() => (auth ? logoutUser() : navigate('/login'))}
             >
-              <span className="absolute -inset-1.5" />
-
               {auth && (
                 <>
                   <span className="mr-1">{'Sign Out'}</span>

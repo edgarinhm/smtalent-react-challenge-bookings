@@ -16,3 +16,11 @@ export const ApiRoom = {
   delete: (id: number): string => `/rooms/${id}`,
   put: (id: number): string => `/rooms/${id}`,
 };
+
+export const ApiSearchActiveHotelsByIds = {
+  get: (params: string): string => `/hotels?active=true&id=${params}`,
+};
+
+export const ApiSearchActiveRoomsById = {
+  get: (): string => `/rooms?active=true`,
+};

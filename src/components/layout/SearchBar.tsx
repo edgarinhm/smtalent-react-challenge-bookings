@@ -3,9 +3,13 @@ import { FormEvent, useState } from 'react';
 import { DatePickerSelectRangeInput } from '../../common/components/DatePickerRange';
 import dayjs from 'dayjs';
 import OccupancyFilter from './OccupancyFilter';
-import { SearchHotelModel } from '../../common/models/search-hotel-model';
+import {
+  SearchHotelModel,
+  SearchHotelResponseModel,
+} from '../../common/models/search-hotel-model';
 import { IoBedOutline } from 'react-icons/io5';
 import ErrorTooltip from '../../common/components/ErrorTooltip';
+import { GetSearchHotels } from '../../common/services/search-service';
 
 const initalState: SearchHotelModel = {
   destination: '',
@@ -16,7 +20,11 @@ const initalState: SearchHotelModel = {
   roomCount: 1,
 };
 
-const SearchBar = () => {
+interface SearchBarProps {
+  onSubmit: (hotels: SearchHotelResponseModel) => void;
+}
+
+const SearchBar = ({ onSubmit }: SearchBarProps) => {
   const [startDate, setStartDate] = useState<Date>(dayjs().toDate());
   const [endDate, setEndDate] = useState<Date | null>(
     dayjs().add(8, 'day').toDate()
@@ -37,9 +45,12 @@ const SearchBar = () => {
     }));
   };
 
-  const handleSubmit = (): void => {
+  const handleSubmit = async (): Promise<void> => {
     setSubmitted(true);
-    console.log('searchHotel', searchHotel);
+    if (searchHotel.destination) {
+      const hotels = await GetSearchHotels(searchHotel);
+      onSubmit(hotels);
+    }
   };
 
   return (
