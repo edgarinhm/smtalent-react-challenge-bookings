@@ -22,7 +22,10 @@ import { RoomType } from '../../../common/enums/room-type';
 import currency from 'currency.js';
 import { CreateRoom } from '../../../common/services/room-service';
 import Spinner from '../../../common/components/Spinner';
-import { LocationType } from '../../../common/enums/location-type';
+import {
+  GetLocationTypeId,
+  LocationType,
+} from '../../../common/enums/location-type';
 import { GetRoomLevels } from '../../../common/functions/room-functions';
 
 interface HotelDrawerProps {
@@ -54,7 +57,11 @@ const HotelDrawer = ({ isOpen, id, onClose }: HotelDrawerProps) => {
 
   const handleSubmit = (): void => {
     setIsLoading(true);
-    CreateRoom(room)
+    const newRoom: Partial<RoomModel> = {
+      ...room,
+      location: GetLocationTypeId(room.location),
+    };
+    CreateRoom(newRoom)
       .then(() => handleClose())
       .catch(() => console.log('ERROR'))
       .finally(() => setIsLoading(false));
