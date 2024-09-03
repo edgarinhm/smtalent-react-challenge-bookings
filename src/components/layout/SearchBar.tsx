@@ -71,6 +71,7 @@ const SearchBar = ({ onSubmit }: SearchBarProps) => {
             >
               <IoBedOutline className="mr-2 text-gray-600 size-6" />
               <Autocomplete
+                placeholder={'¿Adónde vas?'}
                 onChange={(value) =>
                   setSearchHotel((state) => ({
                     ...state,

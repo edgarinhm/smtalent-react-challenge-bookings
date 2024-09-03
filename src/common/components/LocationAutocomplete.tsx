@@ -27,10 +27,14 @@ const initialState = {
 };
 
 interface LocationAutocompeteProps {
+  placeholder?: string;
   onChange: (value: string) => void;
 }
 
-const LocationAutocompete = ({ onChange }: LocationAutocompeteProps) => {
+const LocationAutocompete = ({
+  placeholder,
+  onChange,
+}: LocationAutocompeteProps) => {
   const [selected, setSelected] =
     useState<locationAutocompleteModel>(initialState);
   const [query, setQuery] = useState('');
@@ -63,6 +67,7 @@ const LocationAutocompete = ({ onChange }: LocationAutocompeteProps) => {
               }
               onChange={(event) => setQuery(event.target.value)}
               autoComplete="off"
+              placeholder={placeholder}
             />
             <ComboboxButton className="absolute inset-y-0 right-0 flex items-center pr-2">
               <ChevronUpDownIcon
