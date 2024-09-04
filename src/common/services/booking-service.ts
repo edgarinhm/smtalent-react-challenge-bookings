@@ -21,3 +21,8 @@ export const GetBookingsByHotelId = async (
   return (await axiosInstance.get<BookingModel[]>(url, { params: { hotelId } }))
     .data;
 };
+
+export const DeleteBookingById = async (id: number): Promise<BookingModel> => {
+  const url = ApiBooking.delete(id);
+  return (await axiosInstance.delete<BookingModel>(url)).data;
+};

@@ -31,6 +31,12 @@ const Router = () => {
             <Route path={hotelRoute.pathParam}>
               <Route path={hotelRoute.subroutes.room.name} element={<Room />} />
             </Route>
+            <Route path={hotelRoute.pathParam}>
+              <Route
+                path={hotelRoute.subroutes.reservation.name}
+                element={<Reservation />}
+              />
+            </Route>
           </Route>
           <Route path={hotelRoute.name} element={<Hotel />} />
           <Route path={roomRoute.name}>

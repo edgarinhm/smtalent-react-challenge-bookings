@@ -10,10 +10,10 @@ import Table, {
 import { MdDelete } from 'react-icons/md';
 import { FaEdit } from 'react-icons/fa';
 import Spinner from '../../../common/components/Spinner';
-import { DeleteRoomById } from '../../../common/services/room-service';
 import { useParams } from 'react-router-dom';
 import { GetLocationType } from '../../../common/enums/location-type';
 import {
+  DeleteBookingById,
   GetBookings,
   GetBookingsByHotelId,
 } from '../../../common/services/booking-service';
@@ -25,8 +25,8 @@ import {
 } from '../../../common/services/hotel-service';
 
 const columns = [
-  { Header: 'Piso', dataKey: 'checkIn' },
-  { Header: 'Tipo', dataKey: 'checkOut' },
+  { Header: 'Fecha ingreso', dataKey: 'checkIn' },
+  { Header: 'Fecha salida', dataKey: 'checkOut' },
   { Header: 'Adultos', dataKey: 'adultCount' },
   { Header: 'Contacto de emergencia', dataKey: 'emergencyContactFullname' },
   {
@@ -83,7 +83,7 @@ const Reservation = (): JSX.Element => {
   const handleDelete = (id: number): void => {
     setSpinnerText('Process delete');
     setIsLoading(true);
-    DeleteRoomById(id)
+    DeleteBookingById(id)
       .then(() => {
         loadBookingsData();
       })
@@ -100,11 +100,15 @@ const Reservation = (): JSX.Element => {
       <div className="flex items-center justify-between">
         <h1 className="mt-4 mb-4 font-bold">
           {'Lista de Reservaciones'}
-          {hotelId ? ` Hotel: ${hotelId}` : ''}
+          {hotelId
+            ? `: ${hotels?.find((hotel) => hotel.id.toString() === hotelId)?.name}`
+            : ''}
         </h1>
         <Button
           className="rounded-full py-2 px-4 text-md text-white bg-blue-500 data-[hover]:bg-blue-800 data-[active]:bg-blue-500"
-          onClick={() => setIsAddModalOpen(true)}
+          onClick={() => {
+            //setIsAddModalOpen(true);
+          }}
         >
           {'Agregar Reservación'}
         </Button>
@@ -141,7 +145,7 @@ const Reservation = (): JSX.Element => {
                       className="rounded bg-transparent py-2 px-4 text-md text-blue-500 data-[hover]:text-blue-800 data-[active]:text-blue-500"
                       onClick={() => {
                         setCurrentRoomId(row['id']);
-                        setIsEditModalOpen(true);
+                        //dsetIsEditModalOpen(true);
                       }}
                     >
                       <FaEdit />

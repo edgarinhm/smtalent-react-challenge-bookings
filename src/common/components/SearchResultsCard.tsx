@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaHotel } from 'react-icons/fa';
 import { hotelRoute } from '../../routes';
 import {
@@ -28,6 +28,8 @@ const SearchResultsCard = ({ hotel, search }: SearchResultsCardProps) => {
   const [selectedRoom, setSelectedRoom] = useState<RoomModel>(roomsSorted[0]);
   const { rooms } = hotel;
 
+  const navigate = useNavigate();
+
   const handleHotelReservation = async () => {
     try {
       const booking: Partial<BookingModel> = {
@@ -41,6 +43,10 @@ const SearchResultsCard = ({ hotel, search }: SearchResultsCardProps) => {
       };
 
       await CreateBooking(booking);
+
+      navigate(
+        `${hotelRoute.name}/${hotel.id}/${hotelRoute.subroutes.reservation.name}`
+      );
     } catch (error) {
       console.log('ALERT_ERROR', error);
     }
