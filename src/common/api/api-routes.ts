@@ -27,4 +27,5 @@ export const ApiSearchActiveRoomsById = {
 
 export const ApiBooking = {
   post: () => 'bookings',
+  get: () => 'bookings',
 };

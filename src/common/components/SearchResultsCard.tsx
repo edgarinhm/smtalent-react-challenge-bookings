@@ -37,9 +37,8 @@ const SearchResultsCard = ({ hotel, search }: SearchResultsCardProps) => {
         location: search.destination,
         emergencyContactFullname: 'test emeregency name',
         emergencyContactPhoneNumber: '1234567890',
+        hotelId: hotel.id,
       };
-
-      console.log('booking', booking);
 
       await CreateBooking(booking);
     } catch (error) {

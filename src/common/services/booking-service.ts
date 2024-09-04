@@ -8,3 +8,16 @@ export const CreateBooking = async (
   const url = ApiBooking.post();
   return (await axiosInstance.post<BookingModel>(url, booking)).data;
 };
+
+export const GetBookings = async (): Promise<BookingModel[]> => {
+  const url = ApiBooking.get();
+  return (await axiosInstance.get<BookingModel[]>(url)).data;
+};
+
+export const GetBookingsByHotelId = async (
+  hotelId: number
+): Promise<BookingModel[]> => {
+  const url = ApiBooking.get();
+  return (await axiosInstance.get<BookingModel[]>(url, { params: { hotelId } }))
+    .data;
+};
