@@ -12,6 +12,7 @@ import ErrorTooltip from '../../common/components/ErrorTooltip';
 import { GetSearchHotels } from '../../common/services/search-service';
 import { GetLocationTypeId } from '../../common/enums/location-type';
 import Autocomplete from '../../common/components/LocationAutocomplete';
+import { ISODateFormat } from '../../common/constants/format-strings';
 
 const initalState: SearchHotelModel = {
   destination: '',
@@ -51,7 +52,13 @@ const SearchBar = ({ onSubmit }: SearchBarProps) => {
     setSubmitted(true);
     if (searchHotel.destination) {
       GetLocationTypeId(searchHotel.destination);
-      const hotels = await GetSearchHotels(searchHotel);
+
+      const hotels = await GetSearchHotels({
+        ...searchHotel,
+        checkIn: dayjs(startDate).format(ISODateFormat),
+        checkOut: dayjs(endDate).format(ISODateFormat),
+      });
+
       onSubmit(hotels);
     }
   };

@@ -40,5 +40,5 @@ export const GetSearchHotels = async (
     };
   });
 
-  return { destination: searchHotel.destination, hotel: searchResult };
+  return { hotel: searchResult, search: searchHotel };
 };

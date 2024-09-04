@@ -15,6 +15,6 @@ export interface SearchListHotelModel extends HotelModel {
   rooms: RoomModel[];
 }
 export interface SearchHotelResponseModel {
-  destination: string;
+  search: SearchHotelModel;
   hotel: SearchListHotelModel[];
 }

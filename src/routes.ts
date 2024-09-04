@@ -5,6 +5,7 @@ export const hotelRoute = {
   pathParam: ':hotelId',
   subroutes: {
     room: { name: 'roomAsignation' },
+    reservation: { name: 'roomReservation' },
   },
 };
 export const roomRoute = {

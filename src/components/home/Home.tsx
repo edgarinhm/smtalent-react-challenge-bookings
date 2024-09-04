@@ -3,11 +3,22 @@ import SearchBar from '../layout/SearchBar';
 import SearchList from './SearchList';
 import { SearchHotelResponseModel } from '../../common/models/search-hotel-model';
 
-const Home = () => {
-  const [hotelData, setHotelData] = useState<SearchHotelResponseModel>({
+const initialState = {
+  search: {
+    adultCount: 0,
+    checkIn: '',
+    checkOut: '',
+    childCount: 0,
     destination: '',
-    hotel: [],
-  });
+    roomCount: 0,
+  },
+  hotel: [],
+};
+
+const Home = () => {
+  const [hotelData, setHotelData] =
+    useState<SearchHotelResponseModel>(initialState);
+
   return (
     <div className="bg-white mb-24 w-full">
       <div className="absolute w-[calc(100%-10px)] max-w-[1100px] left-1/2 z-40 -translate-x-1/2 -translate-y-14">

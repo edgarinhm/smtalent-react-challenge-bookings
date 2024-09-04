@@ -24,3 +24,7 @@ export const ApiSearchActiveHotelsByIds = {
 export const ApiSearchActiveRoomsById = {
   get: (): string => `/rooms?active=true`,
 };
+
+export const ApiBooking = {
+  post: () => 'bookings',
+};

@@ -1,22 +1,51 @@
 import { Link } from 'react-router-dom';
 import { FaHotel } from 'react-icons/fa';
 import { hotelRoute } from '../../routes';
-import { SearchListHotelModel } from '../models/search-hotel-model';
+import {
+  SearchHotelModel,
+  SearchListHotelModel,
+} from '../models/search-hotel-model';
 import currency from 'currency.js';
 import { AiFillStar } from 'react-icons/ai';
 import ListSelect, { ListSelectOption, ListSelectOptions } from './ListSelect';
 import { useState } from 'react';
 import { RoomModel } from '../models/room-model';
 import { Button } from '@headlessui/react';
+import { CreateBooking } from '../services/booking-service';
+import { BookingModel } from '../models/booking-model';
 
 interface SearchResultsCardProps {
   hotel: SearchListHotelModel;
+  search: SearchHotelModel;
 }
 
-const SearchResultsCard = ({ hotel }: SearchResultsCardProps) => {
-  const roomsSorted = hotel.rooms.sort((a, b) => a.baseCost - b.baseCost);
+const GetSortRooms = (rooms: RoomModel[]) => {
+  return rooms.sort((a, b) => a.baseCost - b.baseCost);
+};
+
+const SearchResultsCard = ({ hotel, search }: SearchResultsCardProps) => {
+  const roomsSorted = GetSortRooms(hotel.rooms);
   const [selectedRoom, setSelectedRoom] = useState<RoomModel>(roomsSorted[0]);
   const { rooms } = hotel;
+
+  const handleHotelReservation = async () => {
+    try {
+      const booking: Partial<BookingModel> = {
+        adultCount: search.adultCount,
+        checkIn: search.checkIn,
+        checkOut: search.checkOut,
+        location: search.destination,
+        emergencyContactFullname: 'test emeregency name',
+        emergencyContactPhoneNumber: '1234567890',
+      };
+
+      console.log('booking', booking);
+
+      await CreateBooking(booking);
+    } catch (error) {
+      console.log('ALERT_ERROR', error);
+    }
+  };
   return (
     <div className="grid grid-cols-1 xl:grid-cols-[1fr_2fr] border border-slate-300 rounded-lg p-8 gap-8">
       <div className="w-full">
@@ -26,7 +55,7 @@ const SearchResultsCard = ({ hotel }: SearchResultsCardProps) => {
         <div>
           <div className="flex items-center">
             <Link
-              to={`${hotelRoute}/${hotel.id}`}
+              to={`${hotelRoute.name}/${hotel.id}/${hotelRoute.subroutes.reservation.name}`}
               className="text-2xl font-bold cursor-pointer text-blue-600"
             >
               {hotel.name}
@@ -69,7 +98,10 @@ const SearchResultsCard = ({ hotel }: SearchResultsCardProps) => {
             <span className="font-bold">
               {currency(selectedRoom.baseCost).format()} COP por noche
             </span>
-            <Button className="bg-blue-600 text-white h-full p-2 rounded font-bold text-xl max-w-fit hover:bg-blue-500">
+            <Button
+              className="bg-blue-600 text-white h-full p-2 rounded font-bold text-xl max-w-fit hover:bg-blue-500"
+              onClick={handleHotelReservation}
+            >
               {'Reservar ahora'}
             </Button>
           </div>
