@@ -64,7 +64,7 @@ const SearchBar = ({ onSubmit }: SearchBarProps) => {
   };
 
   return (
-    <div className="-mt-8">
+    <div className="-mt-1">
       <form onSubmit={(event: FormEvent) => event.preventDefault()}>
         <div className="mt-6 mb-4 p-1 flex items-center relative bg-yellow-500 rounded-lg max-w-full">
           <div className="flex flex-row items-center flex-1 bg-white p-4 rounded">
