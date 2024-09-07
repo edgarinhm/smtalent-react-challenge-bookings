@@ -68,7 +68,7 @@ const SearchResultsCard = ({ hotel, search }: SearchResultsCardProps) => {
             <span className="flex">
               {Array.from({ length: 5 }).map((start, index) => (
                 <AiFillStar
-                  key={`${hotel.id}-starRating-${index}`}
+                  key={`${hotel.id}-starRating-${index}-${start}`}
                   className="fill-yellow-400"
                 />
               ))}

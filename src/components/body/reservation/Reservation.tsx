@@ -91,6 +91,12 @@ const Reservation = (): JSX.Element => {
       .finally(() => setIsLoading(false));
   };
 
+  const handleLog = (): void => {
+    setSpinnerText(`${currentRoomId}-${isAddModalOpen}-${isEditModalOpen}`);
+    setIsAddModalOpen(false);
+    setIsEditModalOpen(false);
+  };
+
   useEffect(() => {
     loadBookingsData();
   }, [loadBookingsData]);
@@ -107,7 +113,7 @@ const Reservation = (): JSX.Element => {
         <Button
           className="rounded-full py-2 px-4 text-md text-white bg-blue-500 data-[hover]:bg-blue-800 data-[active]:bg-blue-500"
           onClick={() => {
-            //setIsAddModalOpen(true);
+            handleLog();
           }}
         >
           {'Agregar Reservación'}
@@ -145,7 +151,7 @@ const Reservation = (): JSX.Element => {
                       className="rounded bg-transparent py-2 px-4 text-md text-blue-500 data-[hover]:text-blue-800 data-[active]:text-blue-500"
                       onClick={() => {
                         setCurrentRoomId(row['id']);
-                        //dsetIsEditModalOpen(true);
+                        handleLog();
                       }}
                     >
                       <FaEdit />
