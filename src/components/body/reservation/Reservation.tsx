@@ -174,8 +174,7 @@ const Reservation = (): JSX.Element => {
           )}
         </TableBody>
       </Table>
-
-      <Spinner overlay="Component" show={isLoading} text={spinnerText} />
+      <Spinner overlay="None" show={isLoading} text={spinnerText} />
     </div>
   );
 };
