@@ -149,7 +149,7 @@ const Hotel = (): JSX.Element => {
               </TableRow>
             );
           })}
-          {!hotels?.length && (
+          {!hotels?.length && !isLoading && (
             <TableRow>
               <TableColumn>{'No exiten registros'}</TableColumn>
             </TableRow>

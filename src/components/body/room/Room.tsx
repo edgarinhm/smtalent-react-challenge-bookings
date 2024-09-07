@@ -166,7 +166,7 @@ const Room = (): JSX.Element => {
               </TableRow>
             );
           })}
-          {!rooms?.length && (
+          {!rooms?.length && !isLoading && (
             <TableRow>
               <TableColumn>{'No exiten registros'}</TableColumn>
             </TableRow>
