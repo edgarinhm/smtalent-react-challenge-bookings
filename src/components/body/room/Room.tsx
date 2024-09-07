@@ -185,7 +185,7 @@ const Room = (): JSX.Element => {
         onClose={() => setIsAddModalOpen(false)}
         updateGrid={loadRoomsData}
       />
-      <Spinner overlay="None" show={isLoading} text={spinnerText} />
+      <Spinner overlay="Component" show={isLoading} text={spinnerText} />
     </div>
   );
 };
