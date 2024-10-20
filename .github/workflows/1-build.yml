@@ -51,5 +51,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: production-files
-          github_token: ${{ secrets.TOKEN_SMARTALENT_CD }}
           path: ./build
