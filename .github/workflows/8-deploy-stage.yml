@@ -20,10 +20,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: production-files
-          path: ./build
+          path: ./dist
       # Deploy to stage environment
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.TOKEN_SMARTALENT_CD }}
-          publish_dir: ./build
+          publish_dir: ./dist
