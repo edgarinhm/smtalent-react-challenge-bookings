@@ -1,0 +1,29 @@
+name: 80 Deploy Stage
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  build:
+    name: Build
+    uses: ./.github/workflows/1-build.yml
+  # Deploy Job
+  deploy-stage:
+    # Add a dependency to the build job
+    needs: build
+    # Specify runner + deployment step
+    runs-on: ubuntu-latest
+    #environment: staging
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: production-files
+          path: ./build
+      # Deploy to stage environment
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.TOKEN_HACKERRANK_CD }}
+          publish_dir: ./build
