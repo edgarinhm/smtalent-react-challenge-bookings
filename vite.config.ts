@@ -6,6 +6,7 @@ import path from 'path';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: '/smtalent-react-challenge-bookings/', //github pages
   test: {
     globals: true,
     environment: 'jsdom',
