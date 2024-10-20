@@ -7,10 +7,11 @@ import './common/extensions/dayjs-extensions';
 import './common/extensions/datepicker-extensions.ts';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppProvider } from './common/context/AppProvider.tsx';
+import { basename } from './common/constants/basename-constants.ts';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <AppProvider>
         <Routes>
           <Route path="/*" element={<App />} />
