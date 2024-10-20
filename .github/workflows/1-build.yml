@@ -16,8 +16,6 @@ jobs:
       pull-requests: write
     # runner
     runs-on: ubuntu-latest
-    env: # Add environment variables here
-      VITE_SMTALENT_API_URL_BOOKINGS: ${{ vars.VITE_SMTALENT_API_URL_BOOKINGS }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
