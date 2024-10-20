@@ -25,5 +25,5 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_CALM_DUNE_0821B0A1E }}
+          github_token: ${{ secrets.TOKEN_SMARTALENT_CD }}
           publish_dir: ./build
