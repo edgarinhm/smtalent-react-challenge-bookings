@@ -1,6 +1,7 @@
 {
   "name": "smtalent-bookings",
   "private": true,
+  "homepage": "https://edgarinhm.github.io/smtalent-react-challenge-bookings",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
