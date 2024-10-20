@@ -240,8 +240,8 @@ See the section about [deployment](https://vitejs.dev/guide/static-deploy.html) 
 ### Deployment CI/CD
 
 - Github Actions
-- Azure App Service
+- Github Packages
 
 ### Demo:
 
-- Stage: https://calm-dune-0821b0a1e.5.azurestaticapps.net/
+- Stage: https://edgarinhm.github.io/smtalent-react-challenge-bookings
