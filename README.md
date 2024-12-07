@@ -1,4 +1,4 @@
-# React Bokking + TypeScript + Vite
+# React Bookings + TypeScript + Vite
 
 This project was bootstrapped with [Vite](https://vitejs.dev/).
 
