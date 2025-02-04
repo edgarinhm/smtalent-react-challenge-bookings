@@ -53,12 +53,12 @@ const SearchResultsCard = ({ hotel, search }: SearchResultsCardProps) => {
   };
   return (
     <div className="grid grid-cols-1 xl:grid-cols-[1fr_2fr] border border-slate-300 rounded-lg p-8 gap-8">
-      <div className="w-full">
-        <FaHotel className="w-full h-full object-cover object-center" />
+      <div className="w-full flex justify-center ">
+        <FaHotel className="w-full h-full object-cover object-center max-sm:w-1/3" />
       </div>
-      <div className="grid grid-cols-2 justify-between items-start whitespace-nowrap">
+      <div className="grid grid-cols-2 justify-between items-start whitespace-nowrap max-sm:grid-cols-1">
         <div>
-          <div className="flex items-center">
+          <div className="flex items-center max-sm:flex-col">
             <Link
               to={`${hotelRoute.name}/${hotel.id}/${hotelRoute.subroutes.reservation.name}`}
               className="text-2xl font-bold cursor-pointer text-blue-600"
@@ -99,7 +99,7 @@ const SearchResultsCard = ({ hotel, search }: SearchResultsCardProps) => {
           </div>
         </div>
         <div className="grid items-end whitespace-nowrap">
-          <div className="flex flex-col items-end gap-1">
+          <div className="flex flex-col items-end gap-1 max-sm:items-center">
             <span className="font-bold">
               {currency(selectedRoom.baseCost).format()} COP por noche
             </span>
