@@ -66,8 +66,8 @@ const SearchBar = ({ onSubmit }: SearchBarProps) => {
   return (
     <div className="-mt-1">
       <form onSubmit={(event: FormEvent) => event.preventDefault()}>
-        <div className="mt-6 mb-4 p-1 flex items-center relative bg-yellow-500 rounded-lg max-w-full">
-          <div className="flex flex-row items-center flex-1 bg-white p-4 rounded">
+        <div className="mt-6 mb-4 p-1 flex items-center relative bg-yellow-500 rounded-lg max-w-full max-sm:flex-col">
+          <div className="flex flex-row items-center flex-1 bg-white p-4 rounded max-sm:w-full">
             <ErrorTooltip
               error={
                 !searchHotel.destination ? errors?.destination?.message : ''
@@ -88,7 +88,7 @@ const SearchBar = ({ onSubmit }: SearchBarProps) => {
               />
             </ErrorTooltip>
           </div>
-          <div className="flex w-[27%] ml-1 bg-white rounded-md">
+          <div className="flex w-[27%] ml-1 bg-white rounded-md max-sm:w-full">
             <div className="p-3 w-full">
               <DatePickerSelectRangeInput
                 minDate={dayjs()}
@@ -103,7 +103,7 @@ const SearchBar = ({ onSubmit }: SearchBarProps) => {
               />
             </div>
           </div>
-          <div className="flex w-[27%] ml-1 bg-white rounded-md">
+          <div className="flex w-[27%] ml-1 bg-white rounded-md max-sm:w-full">
             <div className="p-3 w-full">
               <OccupancyFilter
                 selected={{
@@ -115,7 +115,7 @@ const SearchBar = ({ onSubmit }: SearchBarProps) => {
               />
             </div>
           </div>
-          <div className="flex ml-1">
+          <div className="flex ml-1 max-sm:w-full">
             <Button
               type="submit"
               className="w-full h-full rounded bg-blue-600 p-3 text-sm/6 font-bold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-blue-700 data-[open]:bg-blue-700 data-[focus]:outline-1 data-[focus]:outline-white"
